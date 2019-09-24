@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportFragmentManager.beginTransaction()
-            .add(SummonerSignupFragment.newInstance(true), "tag")
+            .add(R.id.container, SummonerSignupFragment.newInstance(true))
             .commit()
     }
 }
