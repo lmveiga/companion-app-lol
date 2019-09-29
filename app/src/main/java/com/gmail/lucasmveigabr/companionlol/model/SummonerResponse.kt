@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.model
+package com.gmail.lucasmveigabr.companionlol.model
 
 import com.google.gson.annotations.SerializedName
 

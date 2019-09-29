@@ -1,8 +1,8 @@
-package com.gmail.lucasmveigabr.di
+package com.gmail.lucasmveigabr.companionlol.di
 
 import android.content.Context
 import androidx.room.Room
-import com.gmail.lucasmveigabr.db.room.SummonerDatabase
+import com.gmail.lucasmveigabr.companionlol.db.room.SummonerDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

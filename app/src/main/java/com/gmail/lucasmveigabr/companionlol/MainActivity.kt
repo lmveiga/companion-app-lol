@@ -1,8 +1,8 @@
-package com.gmail.lucasmveigabr
+package com.gmail.lucasmveigabr.companionlol
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.gmail.lucasmveigabr.signup.SummonerSignupFragment
+import com.gmail.lucasmveigabr.companionlol.signup.SummonerSignupFragment
 
 class MainActivity : AppCompatActivity() {
 

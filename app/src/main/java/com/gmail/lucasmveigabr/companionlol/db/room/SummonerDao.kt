@@ -1,11 +1,11 @@
-package com.gmail.lucasmveigabr.db.room
+package com.gmail.lucasmveigabr.companionlol.db.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.gmail.lucasmveigabr.model.Summoner
+import com.gmail.lucasmveigabr.companionlol.model.Summoner
 
 @Dao
 interface SummonerDao {

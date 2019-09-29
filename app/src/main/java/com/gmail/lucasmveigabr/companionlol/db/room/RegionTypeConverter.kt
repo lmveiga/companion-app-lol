@@ -1,7 +1,7 @@
-package com.gmail.lucasmveigabr.db.room
+package com.gmail.lucasmveigabr.companionlol.db.room
 
 import androidx.room.TypeConverter
-import com.gmail.lucasmveigabr.model.Region
+import com.gmail.lucasmveigabr.companionlol.model.Region
 import java.lang.RuntimeException
 
 class RegionTypeConverter {
@@ -10,7 +10,6 @@ class RegionTypeConverter {
         @JvmStatic @TypeConverter fun toRegion(region: Int) =
             when (region) {
                 Region.BR.ordinal -> Region.BR
-                Region.CN.ordinal -> Region.CN
                 Region.NA.ordinal -> Region.NA
                 Region.EUNE.ordinal -> Region.EUNE
                 Region.EUW.ordinal -> Region.EUW
@@ -21,7 +20,6 @@ class RegionTypeConverter {
                 Region.OCE.ordinal -> Region.OCE
                 Region.RU.ordinal -> Region.RU
                 Region.TR.ordinal -> Region.TR
-                Region.SEA.ordinal -> Region.SEA
                 else -> throw RuntimeException("INVALID REGION")
             }
 

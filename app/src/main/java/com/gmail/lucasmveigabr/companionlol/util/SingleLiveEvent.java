@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.util;
+package com.gmail.lucasmveigabr.companionlol.util;
 
 /*
  *  Copyright 2017 Google Inc.

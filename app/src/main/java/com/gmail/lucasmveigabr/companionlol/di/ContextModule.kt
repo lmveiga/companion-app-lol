@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.di
+package com.gmail.lucasmveigabr.companionlol.di
 
 import android.content.Context
 import dagger.Module

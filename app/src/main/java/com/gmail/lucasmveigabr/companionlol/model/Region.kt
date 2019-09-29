@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.model
+package com.gmail.lucasmveigabr.companionlol.model
 
 enum class Region{
     BR {
@@ -51,19 +51,9 @@ enum class Region{
             return "JP"
         }
     },
-    SEA {
-        override fun toString(): String {
-            return "SEA"
-        }
-    },
     KR {
         override fun toString(): String {
             return "KR"
-        }
-    },
-    CN {
-        override fun toString(): String {
-            return "CN"
         }
     }
 }

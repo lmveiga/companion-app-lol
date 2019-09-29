@@ -1,6 +1,6 @@
-package com.gmail.lucasmveigabr.networking.retrofit
+package com.gmail.lucasmveigabr.companionlol.networking.retrofit
 
-import com.gmail.lucasmveigabr.model.SummonerResponse
+import com.gmail.lucasmveigabr.companionlol.model.SummonerResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

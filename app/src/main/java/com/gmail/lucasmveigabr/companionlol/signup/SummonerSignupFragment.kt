@@ -1,31 +1,19 @@
-package com.gmail.lucasmveigabr.signup
+package com.gmail.lucasmveigabr.companionlol.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.gmail.lucasmveigabr.App
 import com.gmail.lucasmveigabr.R
-import com.gmail.lucasmveigabr.model.Region
-import com.gmail.lucasmveigabr.model.Result
-import com.gmail.lucasmveigabr.model.Result.Failure
-import com.gmail.lucasmveigabr.model.Result.Success
-import com.gmail.lucasmveigabr.model.SummonerResponse
-import com.gmail.lucasmveigabr.networking.retrofit.SummonerApi
+import com.gmail.lucasmveigabr.companionlol.model.Region
+import com.gmail.lucasmveigabr.companionlol.signup.SummonerSignupViewModel.AddSummonerResult.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.signup_summoner_fragment.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.create
+import java.lang.RuntimeException
 
 class SummonerSignupFragment : Fragment() {
 
@@ -56,10 +44,15 @@ class SummonerSignupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        region_spinner.adapter = ArrayAdapter<Region>(requireContext(),
-            android.R.layout.simple_list_item_1, Region.values())
+        region_spinner.adapter = ArrayAdapter<Region>(
+            requireContext(),
+            android.R.layout.simple_list_item_1, Region.values()
+        )
         next_button.setOnClickListener {
-
+            viewModel.addSummoner(
+                summoner_name_edit_text.text.toString(),
+                region_spinner.selectedItem as Region
+            )
         }
     }
 
@@ -68,16 +61,25 @@ class SummonerSignupFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SummonerSignupViewModel::class.java)
         viewModel.getSummonerResult().observe(viewLifecycleOwner, Observer { result ->
             val view = view
-            when (result){
-                is Success -> {
-                    if (view != null)
-                        Snackbar.make(view, "Summoner válido!", Snackbar.LENGTH_LONG).show()
+            if (view != null)
+                when (result) {
+                    SUCCESS -> Snackbar.make(
+                        view,
+                        "Summoner Adicionado com Sucesso",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                    NOT_FOUND -> Snackbar.make(
+                        view,
+                        "Summoner não encontrado",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                    NETWORK_ERROR -> Snackbar.make(
+                        view,
+                        "Erro ao buscar informações",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                    else -> throw RuntimeException("NOT AVAILABLE")
                 }
-                is Failure -> {
-                    if (view != null)
-                        Snackbar.make(view, result.error.message.toString(), Snackbar.LENGTH_LONG).show()
-                }
-            }
         })
     }
 

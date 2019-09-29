@@ -1,9 +1,9 @@
-package com.gmail.lucasmveigabr
+package com.gmail.lucasmveigabr.companionlol
 
 import android.app.Application
-import com.gmail.lucasmveigabr.di.AppComponent
-import com.gmail.lucasmveigabr.di.ContextModule
-import com.gmail.lucasmveigabr.di.DaggerAppComponent
+import com.gmail.lucasmveigabr.companionlol.di.AppComponent
+import com.gmail.lucasmveigabr.companionlol.di.ContextModule
+import com.gmail.lucasmveigabr.companionlol.di.DaggerAppComponent
 
 class App: Application() {
 
