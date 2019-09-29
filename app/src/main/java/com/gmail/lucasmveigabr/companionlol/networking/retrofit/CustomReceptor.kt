@@ -1,6 +1,6 @@
 package com.gmail.lucasmveigabr.companionlol.networking.retrofit
 
-import com.gmail.lucasmveigabr.BuildConfig
+import com.gmail.lucasmveigabr.companionlol.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 

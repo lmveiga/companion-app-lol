@@ -32,14 +32,18 @@ class SummonerRepo @Inject constructor(private val summonerApi: SummonerApi, pri
         try {
             val response = summonerApi.getSummoner(summoner)
                 .execute()
-            if (response.code() != 404){
+            if (response.isSuccessful) {
                 return Result.Success(response.body()?.name!!)
             }
-            return Result.Failure(SummonerNotFoundException())
+            if (response.code() == 404) {
+                return Result.Failure(SummonerNotFoundException())
+            }
+            return Result.Failure(Exception("RIOT API EXCEPTION"))
         } catch (ex: Exception){
             ex.printStackTrace()
             return Result.Failure(ex)
         }
     }
+
 
 }
