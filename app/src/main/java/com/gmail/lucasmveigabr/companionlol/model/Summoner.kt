@@ -9,5 +9,6 @@ import com.gmail.lucasmveigabr.companionlol.db.room.RegionTypeConverter
 data class Summoner(
     @PrimaryKey var id: Long?,
     var summonnerName: String,
-    var region: Region
+    var region: Region,
+    var encryptedId: String
 )

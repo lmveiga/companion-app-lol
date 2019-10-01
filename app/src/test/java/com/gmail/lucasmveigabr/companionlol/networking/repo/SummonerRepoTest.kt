@@ -24,7 +24,7 @@ import java.lang.RuntimeException
 import kotlin.reflect.typeOf
 
 @RunWith(MockitoJUnitRunner::class)
-class SummonerRepoTest{
+class SummonerRepoTest {
 
     lateinit var SUT: SummonerRepo
 
@@ -40,25 +40,42 @@ class SummonerRepoTest{
     @Test
     fun VerifySummonerExists_SuccessfulHttpReturn_ReturnsSuccess() {
         success()
-        var result = SUT.verifyIfSummonerExists("summoner", Region.BR)
+        val result = SUT.verifyIfSummonerExists("summoner", Region.BR)
         assertThat(result, instanceOf(Result.Success::class.java))
-        assertThat((result as Result.Success).data, `is`("name"))
+        assertThat((result as Result.Success).data.name, `is`("name"))
     }
 
     @Test
     fun VerifySummonerExists_404HttpReturn_ReturnsSummonerNotFoundException() {
         summonerNotFound()
-        var result = SUT.verifyIfSummonerExists("summoner", Region.BR)
+        val result = SUT.verifyIfSummonerExists("summoner", Region.BR)
         assertThat(result, instanceOf(Result.Failure::class.java))
-        assertThat((result as Result.Failure).error, instanceOf(SummonerNotFoundException::class.java))
+        assertThat(
+            (result as Result.Failure).error,
+            instanceOf(SummonerNotFoundException::class.java)
+        )
+    }
+
+    @Test
+    fun VerifySummonerExists_OtherError_ReturnsFailureWithoutNotFOundException() {
+        otherError()
+        val result = SUT.verifyIfSummonerExists("summoner", Region.BR)
+        assertThat(result, instanceOf(Result.Failure::class.java))
+        assertThat(
+            (result as Result.Failure).error,
+            not(instanceOf(SummonerNotFoundException::class.java))
+        )
     }
 
     @Test
     fun VerifySummonerExists_NetworkError_ReturnsFailureWithoutNotFOundException() {
-        otherError()
-        var result = SUT.verifyIfSummonerExists("summoner", Region.BR)
+        networkError()
+        val result = SUT.verifyIfSummonerExists("summoner", Region.BR)
         assertThat(result, instanceOf(Result.Failure::class.java))
-        assertThat((result as Result.Failure).error, not(instanceOf(SummonerNotFoundException::class.java)))
+        assertThat(
+            (result as Result.Failure).error,
+            not(instanceOf(SummonerNotFoundException::class.java))
+        )
     }
 
     private fun success() {
@@ -73,49 +90,9 @@ class SummonerRepoTest{
         api.otherError = true
     }
 
-    class SummonerApiTd: SummonerApi{
-
-        var notFound: Boolean = false
-        var otherError: Boolean = false
-        override fun getSummoner(name: String): Call<SummonerResponse> {
-            return object: Call<SummonerResponse>{
-                override fun enqueue(callback: Callback<SummonerResponse>) {
-                    throw RuntimeException()
-                }
-
-                override fun isExecuted(): Boolean {
-                    throw RuntimeException()
-                }
-
-                override fun clone(): Call<SummonerResponse> {
-                    throw RuntimeException()
-                }
-
-                override fun isCanceled(): Boolean {
-                    throw RuntimeException()
-                }
-
-                override fun cancel() {
-                    throw RuntimeException()
-                }
-
-                override fun execute(): Response<SummonerResponse> {
-                    if (notFound)
-                        return Response.error(404, ResponseBody.create(null, "body"))
-                    if (otherError)
-                        return Response.error(500,  ResponseBody.create(null, "body"))
-                    return Response.success(
-                        SummonerResponse(1, "name", "puuid",
-                        1, "1", "id", 0)
-                    )
-                }
-
-                override fun request(): Request {
-                    throw RuntimeException()
-                }
-            }
-
-        }
-
+    private fun networkError(){
+        api.networkError = true
     }
+
+
 }

@@ -1,8 +1,10 @@
 package com.gmail.lucasmveigabr.companionlol.di
 
 import android.content.Context
+import com.gmail.lucasmveigabr.companionlol.db.room.SummonerDao
 import com.gmail.lucasmveigabr.companionlol.networking.repo.SummonerRepo
-import com.gmail.lucasmveigabr.companionlol.signup.SummonerSignupViewModel
+import com.gmail.lucasmveigabr.companionlol.screens.active_games.ActiveGameListViewModel
+import com.gmail.lucasmveigabr.companionlol.screens.signup.SummonerSignupViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -12,7 +14,9 @@ interface AppComponent {
 
     fun summonerRepo(): SummonerRepo
     fun appContext(): Context
+    fun summonerDao(): SummonerDao
     fun inject(summonerSignupViewModel: SummonerSignupViewModel)
+    fun inject(summonerSignupViewModel: ActiveGameListViewModel)
 
 
 }

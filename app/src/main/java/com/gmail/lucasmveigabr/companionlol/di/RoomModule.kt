@@ -16,7 +16,7 @@ class RoomModule {
         Room.databaseBuilder(context, SummonerDatabase::class.java, "summoners.db").build()
 
 
-    @Provides
+    @Provides @Singleton
     fun providesSummonersDao(database: SummonerDatabase) =
         database.summonerDao()
 

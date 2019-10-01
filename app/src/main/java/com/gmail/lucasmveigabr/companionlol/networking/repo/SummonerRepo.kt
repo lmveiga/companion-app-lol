@@ -1,9 +1,7 @@
 package com.gmail.lucasmveigabr.companionlol.networking.repo
 
-import com.gmail.lucasmveigabr.companionlol.model.Region
+import com.gmail.lucasmveigabr.companionlol.model.*
 import com.gmail.lucasmveigabr.companionlol.model.Region.*
-import com.gmail.lucasmveigabr.companionlol.model.Result
-import com.gmail.lucasmveigabr.companionlol.model.SummonerNotFoundException
 import com.gmail.lucasmveigabr.companionlol.networking.retrofit.CustomReceptor
 import com.gmail.lucasmveigabr.companionlol.networking.retrofit.SummonerApi
 import javax.inject.Inject
@@ -27,13 +25,13 @@ class SummonerRepo @Inject constructor(private val summonerApi: SummonerApi, pri
             KR -> "kr"
         }
 
-    fun verifyIfSummonerExists(summoner: String, region: Region): Result<String>{
+    fun verifyIfSummonerExists(summoner: String, region: Region): Result<SummonerResponse>{
         receptor.region = getPrefixForRegion(region)
         try {
             val response = summonerApi.getSummoner(summoner)
                 .execute()
             if (response.isSuccessful) {
-                return Result.Success(response.body()?.name!!)
+                return Result.Success(response.body()!!)
             }
             if (response.code() == 404) {
                 return Result.Failure(SummonerNotFoundException())
@@ -44,6 +42,24 @@ class SummonerRepo @Inject constructor(private val summonerApi: SummonerApi, pri
             return Result.Failure(ex)
         }
     }
+
+    fun getSummonerActiveMatch(summonerID: String, region: Region): Result<SummonerMatchStatus>{
+        receptor.region = getPrefixForRegion(region)
+        try{
+            val response = summonerApi.getCurrentGame(summonerID).execute()
+            if (response.isSuccessful){
+                return Result.Success(response.body()!!)
+            }
+            if (response.code() == 404)
+                return Result.Failure(SummonerNotInMatchException())
+            return Result.Failure(Exception("RIOT API EXCEPTION"))
+        } catch (ex: Exception){
+            ex.printStackTrace()
+            return Result.Failure(ex)
+        }
+    }
+
+
 
 
 }

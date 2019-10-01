@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol.signup
+package com.gmail.lucasmveigabr.companionlol.screens.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,11 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.gmail.lucasmveigabr.companionlol.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.R
+import com.gmail.lucasmveigabr.companionlol.model.NavigationEvent
 import com.gmail.lucasmveigabr.companionlol.model.Region
-import com.gmail.lucasmveigabr.companionlol.signup.SummonerSignupViewModel.AddSummonerResult.*
+import com.gmail.lucasmveigabr.companionlol.screens.signup.SummonerSignupViewModel.AddSummonerResult.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.signup_summoner_fragment.*
 import java.lang.RuntimeException
@@ -18,6 +20,7 @@ import java.lang.RuntimeException
 class SummonerSignupFragment : Fragment() {
 
     private lateinit var viewModel: SummonerSignupViewModel
+    private lateinit var navigationViewModel: NavigationViewModel
 
     companion object {
 
@@ -59,15 +62,13 @@ class SummonerSignupFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SummonerSignupViewModel::class.java)
+        navigationViewModel = ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
         viewModel.getSummonerResult().observe(viewLifecycleOwner, Observer { result ->
             val view = view
             if (view != null)
                 when (result) {
-                    SUCCESS -> Snackbar.make(
-                        view,
-                        "Summoner Adicionado com Sucesso",
-                        Snackbar.LENGTH_LONG
-                    ).show()
+                    SUCCESS ->
+                        navigationViewModel.setNavigation(NavigationEvent.ActiveGamesNavigation())
                     NOT_FOUND -> Snackbar.make(
                         view,
                         "Summoner não encontrado",

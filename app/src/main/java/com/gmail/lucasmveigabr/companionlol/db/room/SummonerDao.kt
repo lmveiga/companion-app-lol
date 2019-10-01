@@ -13,6 +13,9 @@ interface SummonerDao {
     @Query("SELECT * FROM SUMMONER ORDER BY summonnerName")
     fun getSummoners(): LiveData<List<Summoner>>
 
+    @Query("SELECT COUNT(*) FROM SUMMONER ORDER BY summonnerName")
+    fun getSummonerCount(): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSummoner(summoner: Summoner)
 

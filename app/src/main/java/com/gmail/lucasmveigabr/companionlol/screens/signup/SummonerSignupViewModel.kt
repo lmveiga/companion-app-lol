@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol.signup
+package com.gmail.lucasmveigabr.companionlol.screens.signup
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
@@ -37,7 +37,8 @@ class SummonerSignupViewModel : ViewModel() {
         Observable.create<Unit> {
             when (val result = summonerRepo.verifyIfSummonerExists(summoner, region)) {
                 is Result.Success -> {
-                    summonersDao.insertSummoner(Summoner(null, result.data, region))
+                    summonersDao.insertSummoner(Summoner(null, result.data.name,
+                        region, result.data.id))
                     addSummonerResult.postValue(AddSummonerResult.SUCCESS)
                 }
                 is Result.Failure -> {
