@@ -44,7 +44,7 @@ class SummonerRepo @Inject constructor(private val summonerApi: SummonerApi, pri
     }
 
     fun getSummonerActiveMatch(summonerID: String, region: Region): Result<SummonerMatchStatus>{
-        receptor.region = getPrefixForRegion(region)
+        receptor.region = getPrefixForRegion(region) //TODO("FIX CONCURRENCY ISSUES")
         try{
             val response = summonerApi.getCurrentGame(summonerID).execute()
             if (response.isSuccessful){
