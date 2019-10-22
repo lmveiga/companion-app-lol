@@ -31,4 +31,6 @@ object Endpoints {
         return "${getBaseUrl(region)}/lol/spectator/v4/active-games/by-summoner/${encryptedID}"
     }
 
+    //TODO("add champions with version")
+
 }

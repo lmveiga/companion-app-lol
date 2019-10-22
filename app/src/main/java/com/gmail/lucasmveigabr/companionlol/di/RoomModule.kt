@@ -13,7 +13,9 @@ class RoomModule {
     @Singleton
     @Provides
     fun provideRoomDatabase(context: Context) =
-        Room.databaseBuilder(context, SummonerDatabase::class.java, "summoners.db").build()
+        Room.databaseBuilder(context, SummonerDatabase::class.java, "summoners.db")
+            .fallbackToDestructiveMigration()
+            .build()
 
 
     @Provides @Singleton

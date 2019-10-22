@@ -8,10 +8,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SummonerRepo @Inject constructor(private val summonerApi: SummonerApi, private val receptor: CustomReceptor) {
+class SummonerRepo @Inject constructor(private val summonerApi: SummonerApi) {
 
 
-    fun verifyIfSummonerExists(summoner: String, region: Region): Result<SummonerResponse>{
+    fun verifyIfSummonerExists(summoner: String, region: Region): Result<SummonerResponse> {
         try {
             val response = summonerApi.getSummoner(Endpoints.summonerInfo(region, summoner))
                 .execute()
@@ -22,28 +22,27 @@ class SummonerRepo @Inject constructor(private val summonerApi: SummonerApi, pri
                 return Result.Failure(SummonerNotFoundException())
             }
             return Result.Failure(Exception("RIOT API EXCEPTION"))
-        } catch (ex: Exception){
+        } catch (ex: Exception) {
             ex.printStackTrace()
             return Result.Failure(ex)
         }
     }
 
-    fun getSummonerActiveMatch(summonerID: String, region: Region): Result<SummonerMatchStatus>{
-        try{
-            val response = summonerApi.getCurrentGame(Endpoints.gameInfo(region, summonerID)).execute()
-            if (response.isSuccessful){
+    fun getSummonerActiveMatch(summonerID: String, region: Region): Result<SummonerMatchStatus> {
+        try {
+            val response =
+                summonerApi.getCurrentGame(Endpoints.gameInfo(region, summonerID)).execute()
+            if (response.isSuccessful) {
                 return Result.Success(response.body()!!)
             }
             if (response.code() == 404)
                 return Result.Failure(SummonerNotInMatchException())
             return Result.Failure(Exception("RIOT API EXCEPTION"))
-        } catch (ex: Exception){
+        } catch (ex: Exception) {
             ex.printStackTrace()
             return Result.Failure(ex)
         }
     }
-
-
 
 
 }
