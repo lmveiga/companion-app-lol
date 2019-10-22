@@ -6,4 +6,5 @@
     <string name="select_summoner">Select your Summoner</string>
     <string name="register_new_summoner">Register New Summoner</string>
     <string name="game_active">game active</string>
+    <string name="refresh">Refresh</string>
 </resources>

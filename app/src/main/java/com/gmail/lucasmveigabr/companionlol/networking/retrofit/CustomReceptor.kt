@@ -12,7 +12,7 @@ class CustomReceptor: Interceptor {
         val original = chain.request()
         val builder = original.newBuilder()
             .header("X-Riot-Token", BuildConfig.RiotAPIKey)
-            .url(original.url().url().toString().replace("region", region))
+            //.url(original.url().url().toString().replace("region", region))
         val request = builder.build()
         return chain.proceed(request)
     }

@@ -7,8 +7,7 @@ import com.gmail.lucasmveigabr.companionlol.db.room.RegionTypeConverter
 
 @Entity @TypeConverters(RegionTypeConverter::class)
 data class Summoner(
-    @PrimaryKey var id: Long?,
+    @PrimaryKey(autoGenerate = false) var encryptedId: String,
     var summonnerName: String,
-    var region: Region,
-    var encryptedId: String
+    var region: Region
 )

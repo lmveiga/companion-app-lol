@@ -20,6 +20,9 @@ class ActiveGameListFragment: Fragment() {
     private lateinit var navigationViewModel: NavigationViewModel
     private lateinit var adapter: ActiveGameListAdapter
 
+    private var refreshLastClick: Long = 0
+    private var registerNewSummonerLastClick: Long = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,7 +37,22 @@ class ActiveGameListFragment: Fragment() {
         summoners_recycler_view.layoutManager = LinearLayoutManager(requireContext())
         summoners_recycler_view.adapter = adapter
         register_new_summoner_button.setOnClickListener {
-            navigationViewModel.setNavigation(NavigationEvent.SummonerSignupNavigation(false))
+            if (System.currentTimeMillis() - registerNewSummonerLastClick >= 6000) {
+                registerNewSummonerLastClick = System.currentTimeMillis()
+                navigationViewModel.setNavigation(NavigationEvent.SummonerSignupNavigation(false))
+            }
+        }
+        refresh_button.setOnClickListener {
+            if (System.currentTimeMillis() - refreshLastClick >= 7000) {
+                refreshLastClick = System.currentTimeMillis()
+                val summoners = adapter.getSummoners()
+                for (summoner in summoners) {
+                    viewModel.getObservableForSummoner(summoner.summoner)
+                        .observe(viewLifecycleOwner, Observer { updatedSummoner ->
+                            adapter.updateSummoner(updatedSummoner)
+                        })
+                }
+            }
         }
     }
 
@@ -52,7 +70,6 @@ class ActiveGameListFragment: Fragment() {
                 })
             }
         })
-
     }
 
 }

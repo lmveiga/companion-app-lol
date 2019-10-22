@@ -21,6 +21,7 @@ class SummonerSignupFragment : Fragment() {
 
     private lateinit var viewModel: SummonerSignupViewModel
     private lateinit var navigationViewModel: NavigationViewModel
+    private var buttonLastClick: Long = 0
 
     companion object {
 
@@ -52,10 +53,13 @@ class SummonerSignupFragment : Fragment() {
             android.R.layout.simple_list_item_1, Region.values()
         )
         next_button.setOnClickListener {
-            viewModel.addSummoner(
-                summoner_name_edit_text.text.toString(),
-                region_spinner.selectedItem as Region
-            )
+            if (System.currentTimeMillis() - buttonLastClick >= 8000) {
+                buttonLastClick = System.currentTimeMillis()
+                viewModel.addSummoner(
+                    summoner_name_edit_text.text.toString(),
+                    region_spinner.selectedItem as Region
+                )
+            }
         }
     }
 

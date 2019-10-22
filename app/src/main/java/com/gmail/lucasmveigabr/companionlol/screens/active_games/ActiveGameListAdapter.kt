@@ -32,6 +32,8 @@ class ActiveGameListAdapter(val context: Context): RecyclerView.Adapter<ActiveGa
         notifyDataSetChanged()
     }
 
+    fun getSummoners() = summoners
+
     fun updateSummoner(summoner: SummonerInGame){
         try {
             val index = summoners.indexOf(summoner)
