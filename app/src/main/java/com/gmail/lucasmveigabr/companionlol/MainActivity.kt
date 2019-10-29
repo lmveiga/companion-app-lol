@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gmail.lucasmveigabr.companionlol.model.NavigationEvent
-import com.gmail.lucasmveigabr.companionlol.screens.active_games.ActiveGameListFragment
+import com.gmail.lucasmveigabr.companionlol.screens.active_game.ActiveGameFragment
+import com.gmail.lucasmveigabr.companionlol.screens.active_game_list.ActiveGameListFragment
 import com.gmail.lucasmveigabr.companionlol.screens.signup.SummonerSignupFragment
 
 class MainActivity : AppCompatActivity() {
@@ -25,10 +26,11 @@ class MainActivity : AppCompatActivity() {
     fun navigate(navigation: NavigationEvent){
         //val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
         val replaceFragment =
-        when (navigation) {
-            is NavigationEvent.SummonerSignupNavigation -> SummonerSignupFragment()
-            is NavigationEvent.ActiveGamesNavigation -> ActiveGameListFragment()
-        }
+            when (navigation) {
+                is NavigationEvent.SummonerSignupNavigation -> SummonerSignupFragment()
+                is NavigationEvent.ActiveGameListNavigation -> ActiveGameListFragment()
+                is NavigationEvent.ActiveGameNavigation -> ActiveGameFragment()
+            }
         supportFragmentManager.beginTransaction().replace(R.id.container, replaceFragment)
             .commit()
     }

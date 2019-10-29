@@ -30,7 +30,7 @@ class ChampionRepoTest{
     fun getChampion_SuccessfulResponse_ReturnsCorrectChampion() {
         val result = SUT.getChampion(103)
         assertThat(result, instanceOf(Result.Success::class.java))
-        assertThat((result as Result.Success).data, `is`("Ahri"))
+        assertThat((result as Result.Success).data.name, `is`("Ahri"))
     }
 
     @Test
@@ -40,7 +40,7 @@ class ChampionRepoTest{
         val result = SUT.getChampion(103)
         assertThat(api.hasBeenCalled, `is`(false))
         assertThat(result, instanceOf(Result.Success::class.java))
-        assertThat((result as Result.Success).data, `is`("Ahri"))
+        assertThat((result as Result.Success).data.name, `is`("Ahri"))
     }
 
     @Test

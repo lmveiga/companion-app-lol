@@ -2,7 +2,6 @@ package com.gmail.lucasmveigabr.companionlol
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.gmail.lucasmveigabr.companionlol.db.room.SummonerDao
 import com.gmail.lucasmveigabr.companionlol.model.NavigationEvent
 import com.gmail.lucasmveigabr.companionlol.util.SingleLiveEvent
 import io.reactivex.Observable
@@ -23,7 +22,7 @@ class NavigationViewModel: ViewModel() {
     fun noFragmentsAttached() {
         Observable.create<Boolean> {
             if (summonerDao.getSummonerCount() > 0){
-                navigation.postValue(NavigationEvent.ActiveGamesNavigation())
+                navigation.postValue(NavigationEvent.ActiveGameListNavigation())
             } else {
                 navigation.postValue(NavigationEvent.SummonerSignupNavigation(true))
             }

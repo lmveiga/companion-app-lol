@@ -35,6 +35,13 @@ object Endpoints {
         return "http://ddragon.leagueoflegends.com/cdn/9.21.1/data/en_US/champion.json"
     }
 
+    fun championCard(championID: String): String{
+        return "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championID}_0.jpg"
+    }
+
+    fun championIcon(championID: String): String{
+        return "http://ddragon.leagueoflegends.com/cdn/9.21.1/img/champion/${championID}.png"
+    }
     //TODO("add champions with version")
 
 }

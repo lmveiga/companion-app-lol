@@ -1,16 +1,13 @@
-package com.gmail.lucasmveigabr.companionlol.screens.active_games
+package com.gmail.lucasmveigabr.companionlol.screens.active_game_list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.gmail.lucasmveigabr.companionlol.App
 import com.gmail.lucasmveigabr.companionlol.db.room.SummonerDao
 import com.gmail.lucasmveigabr.companionlol.model.Result
 import com.gmail.lucasmveigabr.companionlol.model.Summoner
 import com.gmail.lucasmveigabr.companionlol.model.SummonerInGame
-import com.gmail.lucasmveigabr.companionlol.model.SummonerMatchStatus
-import com.gmail.lucasmveigabr.companionlol.model.SummonerResponse
 import com.gmail.lucasmveigabr.companionlol.networking.repo.SummonerRepo
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable

@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol.screens.active_games
+package com.gmail.lucasmveigabr.companionlol.screens.active_game_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,16 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.gmail.lucasmveigabr.companionlol.CurrentGameViewModel
 import com.gmail.lucasmveigabr.companionlol.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.model.NavigationEvent
 import com.gmail.lucasmveigabr.companionlol.model.SummonerInGame
-import kotlinx.android.synthetic.main.active_game_list_fragment.*
+import kotlinx.android.synthetic.main.fragment_active_game_list.*
 
 class ActiveGameListFragment: Fragment() {
 
     private lateinit var viewModel: ActiveGameListViewModel
     private lateinit var navigationViewModel: NavigationViewModel
+    private lateinit var currentGameViewModel: CurrentGameViewModel
     private lateinit var adapter: ActiveGameListAdapter
 
     private var refreshLastClick: Long = 0
@@ -28,12 +30,17 @@ class ActiveGameListFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.active_game_list_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_active_game_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = ActiveGameListAdapter(requireContext())
+        adapter = ActiveGameListAdapter(requireContext()){
+            if (it?.game != null) {
+                currentGameViewModel.setCurrentGame(it)
+                navigationViewModel.setNavigation(NavigationEvent.ActiveGameNavigation())
+            }
+        }
         summoners_recycler_view.layoutManager = LinearLayoutManager(requireContext())
         summoners_recycler_view.adapter = adapter
         register_new_summoner_button.setOnClickListener {
@@ -60,6 +67,7 @@ class ActiveGameListFragment: Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ActiveGameListViewModel::class.java)
         navigationViewModel = ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
+        currentGameViewModel = ViewModelProvider(requireActivity())[CurrentGameViewModel::class.java]
         viewModel.getSummoners().observe(viewLifecycleOwner, Observer {summoners ->
             adapter.setSummoners(summoners.map {
                 SummonerInGame(true, it, null)

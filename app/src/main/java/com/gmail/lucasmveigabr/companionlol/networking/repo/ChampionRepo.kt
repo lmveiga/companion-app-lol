@@ -6,6 +6,8 @@ import android.util.SparseIntArray
 import androidx.collection.SparseArrayCompat
 import androidx.core.util.contains
 import androidx.core.util.containsKey
+import com.gmail.lucasmveigabr.companionlol.model.ChampionData
+import com.gmail.lucasmveigabr.companionlol.model.ChampionSchema
 import com.gmail.lucasmveigabr.companionlol.networking.retrofit.LeagueApi
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,24 +19,25 @@ import java.lang.RuntimeException
 @Singleton
 class ChampionRepo @Inject constructor(private val leagueApi: LeagueApi) {
 
-    private val cache = SparseArrayCompat<String>()
+    private val cache = SparseArrayCompat<ChampionSchema>()
 
-    fun getChampion(id: Int): Result<String> {
+    fun getChampion(id: Int): Result<ChampionSchema> {
         try {
             val cachedValue = cache.get(id)
             if (cachedValue != null) return Result.Success(cachedValue)
 
             val response = leagueApi.getChampions(Endpoints.champions()).execute()
             response.body()?.let { championData ->
-                var result = ""
+                var result: ChampionSchema? = null
                 championData.data.forEach { champion ->
-                    cache.put(champion.key, champion.name)
+                    cache.put(champion.key, champion)
                     if (champion.key == id) {
-                        result = champion.name
+                        result = champion
                     }
                 }
-                if (result != "")
-                    return Result.Success(result)
+                result?.let {
+                    return Result.Success(it)
+                }
             }
             return Result.Failure(Exception("Unable to find champion"))
         } catch (ex: Exception) {
