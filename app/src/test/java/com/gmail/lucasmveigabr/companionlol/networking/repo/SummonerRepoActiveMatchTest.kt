@@ -3,7 +3,6 @@ package com.gmail.lucasmveigabr.companionlol.networking.repo
 import com.gmail.lucasmveigabr.companionlol.model.Region
 import com.gmail.lucasmveigabr.companionlol.model.Result
 import com.gmail.lucasmveigabr.companionlol.model.SummonerNotInMatchException
-import com.gmail.lucasmveigabr.companionlol.networking.retrofit.CustomReceptor
 import org.hamcrest.CoreMatchers.*
 import org.junit.Before
 
@@ -16,13 +15,13 @@ import org.mockito.junit.MockitoJUnitRunner
 class SummonerRepoActiveMatchTest {
 
     lateinit var SUT: SummonerRepo
-    lateinit var api: SummonerApiTd
+    lateinit var api: LeagueApiTd
 
 
     @Before
     fun setUp() {
-        api = SummonerApiTd()
-        SUT = SummonerRepo(api, CustomReceptor())
+        api = LeagueApiTd()
+        SUT = SummonerRepo(api)
     }
 
     @Test

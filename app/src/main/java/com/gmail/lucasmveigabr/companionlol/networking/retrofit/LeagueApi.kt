@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Url
 
-interface SummonerApi {
+interface LeagueApi {
 
     @GET
     fun getSummoner(@Url url: String): Call<SummonerResponse>

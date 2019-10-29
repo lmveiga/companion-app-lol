@@ -3,38 +3,25 @@ package com.gmail.lucasmveigabr.companionlol.networking.repo
 import com.gmail.lucasmveigabr.companionlol.model.Region
 import com.gmail.lucasmveigabr.companionlol.model.Result
 import com.gmail.lucasmveigabr.companionlol.model.SummonerNotFoundException
-import com.gmail.lucasmveigabr.companionlol.model.SummonerResponse
-import com.gmail.lucasmveigabr.companionlol.networking.retrofit.CustomReceptor
-import com.gmail.lucasmveigabr.companionlol.networking.retrofit.SummonerApi
-import okhttp3.Request
-import okhttp3.ResponseBody
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.*
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.lang.RuntimeException
-import kotlin.reflect.typeOf
 
 @RunWith(MockitoJUnitRunner::class)
 class SummonerRepoTest {
 
     lateinit var SUT: SummonerRepo
 
-    lateinit var api: SummonerApiTd
+    lateinit var api: LeagueApiTd
 
 
     @Before
     fun setUp() {
-        api = SummonerApiTd()
-        SUT = SummonerRepo(api, CustomReceptor())
+        api = LeagueApiTd()
+        SUT = SummonerRepo(api)
     }
 
     @Test

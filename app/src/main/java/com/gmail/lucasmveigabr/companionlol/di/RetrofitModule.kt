@@ -1,7 +1,7 @@
 package com.gmail.lucasmveigabr.companionlol.di
 
 import com.gmail.lucasmveigabr.companionlol.networking.retrofit.CustomReceptor
-import com.gmail.lucasmveigabr.companionlol.networking.retrofit.SummonerApi
+import com.gmail.lucasmveigabr.companionlol.networking.retrofit.LeagueApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -14,8 +14,8 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideSummonerApi(retrofit: Retrofit): SummonerApi{
-        return retrofit.create(SummonerApi::class.java)
+    fun provideSummonerApi(retrofit: Retrofit): LeagueApi{
+        return retrofit.create(LeagueApi::class.java)
     }
 
     @Provides

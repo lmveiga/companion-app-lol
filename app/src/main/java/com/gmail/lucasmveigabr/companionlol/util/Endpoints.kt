@@ -31,6 +31,10 @@ object Endpoints {
         return "${getBaseUrl(region)}/lol/spectator/v4/active-games/by-summoner/${encryptedID}"
     }
 
+    fun champions(): String{
+        return "http://ddragon.leagueoflegends.com/cdn/9.21.1/data/en_US/champion.json"
+    }
+
     //TODO("add champions with version")
 
 }
