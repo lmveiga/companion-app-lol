@@ -25,12 +25,6 @@ class SummonerRepoActiveMatchTest {
     }
 
     @Test
-    fun getSummonerActiveMatch_CorrectParametersPassedToApi() {
-        SUT.getSummonerActiveMatch("id", Region.BR)
-        assertThat(api.summonerIdInformed, `is`("id"))
-    }
-
-    @Test
     fun getSummonerActiveMatch_SuccessfulReturn_ReturnsSummonerMatchCorrectly(){
         success();
         val response = SUT.getSummonerActiveMatch("id", Region.BR)

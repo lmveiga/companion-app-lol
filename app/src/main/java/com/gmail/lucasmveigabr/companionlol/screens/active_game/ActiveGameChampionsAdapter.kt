@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.model.EnemySummoner
+import kotlinx.android.synthetic.main.holder_active_game_champions.view.*
 
 class ActiveGameChampionsAdapter(val context: Context, val enemies: List<EnemySummoner>, val onClick: ((EnemySummoner) -> Unit)):
     RecyclerView.Adapter<ActiveGameChampionsAdapter.ActiveGameChampionsHolder>() {
@@ -25,7 +27,7 @@ class ActiveGameChampionsAdapter(val context: Context, val enemies: List<EnemySu
 
 
     inner class ActiveGameChampionsHolder(
-        val view: View,
+        private val view: View,
         onClick: (EnemySummoner) -> Unit
     ): RecyclerView.ViewHolder(view){
 
@@ -34,7 +36,9 @@ class ActiveGameChampionsAdapter(val context: Context, val enemies: List<EnemySu
         }
 
         fun bind(enemy: EnemySummoner){
-
+            Glide.with(context)
+                .load(enemy.championIconUrl).into(view.champion_icon)
+            view.summoner_name_text_view.text = enemy.summonerName
         }
     }
 }

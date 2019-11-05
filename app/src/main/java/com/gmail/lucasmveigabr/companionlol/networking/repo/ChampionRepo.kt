@@ -21,6 +21,7 @@ class ChampionRepo @Inject constructor(private val leagueApi: LeagueApi) {
 
     private val cache = SparseArrayCompat<ChampionSchema>()
 
+    @Synchronized
     fun getChampion(id: Int): Result<ChampionSchema> {
         try {
             val cachedValue = cache.get(id)
@@ -30,9 +31,9 @@ class ChampionRepo @Inject constructor(private val leagueApi: LeagueApi) {
             response.body()?.let { championData ->
                 var result: ChampionSchema? = null
                 championData.data.forEach { champion ->
-                    cache.put(champion.key, champion)
-                    if (champion.key == id) {
-                        result = champion
+                    cache.put(champion.value.key, champion.value)
+                    if (champion.value.key == id) {
+                        result = champion.value
                     }
                 }
                 result?.let {
@@ -41,6 +42,7 @@ class ChampionRepo @Inject constructor(private val leagueApi: LeagueApi) {
             }
             return Result.Failure(Exception("Unable to find champion"))
         } catch (ex: Exception) {
+            ex.printStackTrace()
             return Result.Failure(ex)
         }
     }

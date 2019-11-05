@@ -19,7 +19,7 @@ import javax.inject.Inject
 class ActiveGameViewModel : ViewModel() {
 
     @Inject
-    private lateinit var championRepo: ChampionRepo
+    lateinit var championRepo: ChampionRepo
 
     private val currentGame = MutableLiveData<SummonerInGame>()
     private val enemies = MutableLiveData<List<EnemySummoner>>()
