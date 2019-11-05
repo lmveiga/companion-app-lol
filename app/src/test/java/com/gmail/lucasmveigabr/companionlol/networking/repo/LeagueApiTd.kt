@@ -12,6 +12,7 @@ import java.lang.RuntimeException
 
 class LeagueApiTd: LeagueApi {
 
+
     var notFound: Boolean = false
     var otherError: Boolean = false
     var networkError: Boolean = false
@@ -143,10 +144,58 @@ class LeagueApiTd: LeagueApi {
         }
     }
 
+    override fun getSpells(url: String): Call<SpellsResponse> {
+        return object: Call<SpellsResponse>{
+            override fun enqueue(callback: Callback<SpellsResponse>) {
+                throw RuntimeException()
+            }
+
+            override fun isExecuted(): Boolean {
+                throw RuntimeException()
+            }
+
+            override fun clone(): Call<SpellsResponse> {
+                throw RuntimeException()
+            }
+
+            override fun isCanceled(): Boolean {
+                throw RuntimeException()
+            }
+
+            override fun cancel() {
+                throw RuntimeException()
+            }
+
+            override fun execute(): Response<SpellsResponse> {
+                hasBeenCalled = true
+                if (otherError)
+                    return Response.error(500, ResponseBody.create(null, ""))
+                if (networkError) throw IOException()
+                return Response.success(getSpellData())
+            }
+
+            override fun request(): Request {
+                throw RuntimeException()
+            }
+
+        }
+    }
+
+    private fun getSpellData(): SpellsResponse{
+        val spells = HashMap<String, SpellSumm>()
+        spells["SummonerBarrier"] = SpellSumm(ArrayList(), "desc",
+            "SummonerBarrier", ImageX("SummonerBarrier.png", 0,0,0,0),
+            "21", "Barrier", ArrayList(), "", "")
+        spells["SummonerBoost"] = SpellSumm(ArrayList(), "desc",
+            "SummonerBoost", ImageX("SummonerBoost.png", 0,0,0,0),
+            "1", "Cleanse", ArrayList(), "", "")
+        return SpellsResponse(spells, "type", "version")
+    }
+
     private fun getChampionData(): ChampionData{
-        val champions = ArrayList<ChampionSchema>()
-        champions.add(ChampionSchema("9.21.1", "Aatrox", 266, "Aatrox", "The Darkin Blade"))
-        champions.add(ChampionSchema("9.21.1", "Ahri", 103, "Ahri", "the Nine-Tailed Fox"))
+        val champions = HashMap<String, ChampionSchema>()
+        champions["Aatrox"] = ChampionSchema("9.21.1", "Aatrox", 266, "Aatrox", "The Darkin Blade")
+        champions ["Aatrox"] = ChampionSchema("9.21.1", "Ahri", 103, "Ahri", "the Nine-Tailed Fox")
         return ChampionData("champion", "standaloneComplex", "9.21.1",
             champions)
     }

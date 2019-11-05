@@ -15,10 +15,10 @@
 
         <ImageView
             android:id="@+id/champion_icon"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/_1sdp"
-            android:scaleType="centerInside"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
             android:contentDescription="@string/champion_description"
             android:src="@drawable/ic_failed_to_load"
             app:layout_constraintTop_toTopOf="parent"
@@ -26,16 +26,97 @@
             app:layout_constraintStart_toStartOf="parent"
             />
 
+
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_1sdp"
+            android:layout_margin="4dp"
             android:id="@+id/summoner_name_text_view"
             android:textColor="@android:color/black"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/champion_icon"
+            app:layout_constraintEnd_toStartOf="@id/spell1_image"
             />
+
+        <ImageView
+            android:cropToPadding="true"
+            android:id="@+id/spell1_image"
+            android:background="@drawable/image_view_border_background"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/summoner_spell"
+            android:src="@drawable/ic_failed_to_load"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/spell2_image"
+            />
+
+        <View
+            android:id="@+id/spell1_darkoverlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#9F000000"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/spell1_image"
+            app:layout_constraintBottom_toBottomOf="@id/spell1_image"
+            app:layout_constraintStart_toStartOf="@id/spell1_image"
+            app:layout_constraintEnd_toEndOf="@id/spell1_image"
+            />
+
+        <TextView
+            android:id="@+id/spell1_cd"
+            android:visibility="visible"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="@id/spell1_image"
+            app:layout_constraintBottom_toBottomOf="@id/spell1_image"
+            app:layout_constraintStart_toStartOf="@id/spell1_image"
+            app:layout_constraintEnd_toEndOf="@id/spell1_image"/>
+
+        <ImageView
+            android:cropToPadding="true"
+            android:background="@drawable/image_view_border_background"
+            android:id="@+id/spell2_image"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_margin="8dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/summoner_spell"
+            android:src="@drawable/ic_failed_to_load"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <View
+            android:id="@+id/spell2_darkoverlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#9F000000"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/spell2_image"
+            app:layout_constraintBottom_toBottomOf="@id/spell2_image"
+            app:layout_constraintStart_toStartOf="@id/spell2_image"
+            app:layout_constraintEnd_toEndOf="@id/spell2_image"
+            />
+
+        <TextView
+            android:id="@+id/spell2_cd"
+            android:visibility="visible"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="@id/spell2_image"
+            app:layout_constraintBottom_toBottomOf="@id/spell2_image"
+            app:layout_constraintStart_toStartOf="@id/spell2_image"
+            app:layout_constraintEnd_toEndOf="@id/spell2_image"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

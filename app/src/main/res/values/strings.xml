@@ -8,4 +8,5 @@
     <string name="game_active">game active</string>
     <string name="refresh">Refresh</string>
     <string name="champion_description">Champion Description</string>
+    <string name="summoner_spell">Summoner Spell</string>
 </resources>

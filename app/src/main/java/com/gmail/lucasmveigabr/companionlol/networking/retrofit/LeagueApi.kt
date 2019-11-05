@@ -1,8 +1,6 @@
 package com.gmail.lucasmveigabr.companionlol.networking.retrofit
 
-import com.gmail.lucasmveigabr.companionlol.model.ChampionData
-import com.gmail.lucasmveigabr.companionlol.model.SummonerMatchStatus
-import com.gmail.lucasmveigabr.companionlol.model.SummonerResponse
+import com.gmail.lucasmveigabr.companionlol.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,4 +16,7 @@ interface LeagueApi {
 
     @GET
     fun getChampions(@Url url: String): Call<ChampionData>
+
+    @GET
+    fun getSpells(@Url url: String): Call<SpellsResponse>
 }

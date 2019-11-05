@@ -42,6 +42,14 @@ object Endpoints {
     fun championIcon(championID: String): String{
         return "http://ddragon.leagueoflegends.com/cdn/9.21.1/img/champion/${championID}.png"
     }
+
+    fun summonersSpells(): String{
+        return "http://ddragon.leagueoflegends.com/cdn/9.21.1/data/en_US/summoner.json"
+    }
+
+    fun spellIcon(filename: String): String{
+        return "http://ddragon.leagueoflegends.com/cdn/9.21.1/img/spell/${filename}"
+    }
     //TODO("add champions with version")
 
 }

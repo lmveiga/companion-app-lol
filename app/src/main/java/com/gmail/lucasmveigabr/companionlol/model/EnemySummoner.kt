@@ -5,6 +5,8 @@ data class EnemySummoner (
     val championName: String,
     val championIconUrl: String,
     val championCardUrl: String,
-    var timeFirstSummonerLastUsed: Long,
-    var timeSecondSummonerLastUsed: Long
+    val spell1: SpellSumm?,
+    val spell2: SpellSumm?,
+    var firstSpellCd: Double,
+    var secondSpellCd: Double
 )
