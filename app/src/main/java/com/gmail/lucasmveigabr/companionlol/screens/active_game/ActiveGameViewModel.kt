@@ -43,6 +43,7 @@ class ActiveGameViewModel : ViewModel() {
     }
 
     fun setCurrentGame(game: SummonerInGame) {
+        if (currentGame.value != null) return
         currentGame.value = game
         val user =
             game.game?.participants?.firstOrNull { it.summonerId == game.summoner.encryptedId }

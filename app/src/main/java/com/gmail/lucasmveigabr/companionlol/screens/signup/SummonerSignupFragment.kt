@@ -23,21 +23,6 @@ class SummonerSignupFragment : Fragment() {
     private lateinit var navigationViewModel: NavigationViewModel
     private var buttonLastClick: Long = 0
 
-    companion object {
-
-        private const val ARG_FIRST_SUMMONER = "first_summoner"
-
-        @JvmStatic
-        fun newInstance(isFirstSummoner: Boolean): SummonerSignupFragment {
-            val fragment = SummonerSignupFragment()
-            val bundle = Bundle()
-            bundle.putBoolean(ARG_FIRST_SUMMONER, isFirstSummoner)
-            fragment.arguments = bundle
-            return fragment
-        }
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

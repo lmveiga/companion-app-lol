@@ -3,7 +3,8 @@ package com.gmail.lucasmveigabr.companionlol.util
 import com.gmail.lucasmveigabr.companionlol.model.Region
 
 object Endpoints {
-
+    private const val DD_VERSION = "9.22.1" 
+    
     private fun getPrefixForRegion(region: Region) =
         when (region){
             Region.BR -> "br1"
@@ -32,7 +33,7 @@ object Endpoints {
     }
 
     fun champions(): String{
-        return "http://ddragon.leagueoflegends.com/cdn/9.21.1/data/en_US/champion.json"
+        return "http://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/data/en_US/champion.json"
     }
 
     fun championCard(championID: String): String{
@@ -40,15 +41,19 @@ object Endpoints {
     }
 
     fun championIcon(championID: String): String{
-        return "http://ddragon.leagueoflegends.com/cdn/9.21.1/img/champion/${championID}.png"
+        return "http://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/img/champion/${championID}.png"
     }
 
     fun summonersSpells(): String{
-        return "http://ddragon.leagueoflegends.com/cdn/9.21.1/data/en_US/summoner.json"
+        return "http://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/data/en_US/summoner.json"
     }
 
     fun spellIcon(filename: String): String{
-        return "http://ddragon.leagueoflegends.com/cdn/9.21.1/img/spell/${filename}"
+        return "http://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/img/spell/${filename}"
+    }
+
+    fun version(): String{
+        return "https://ddragon.leagueoflegends.com/api/versions.json"
     }
     //TODO("add champions with version")
 

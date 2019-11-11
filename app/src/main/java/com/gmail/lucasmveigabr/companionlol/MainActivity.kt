@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun navigate(navigation: NavigationEvent){
-        //val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
         val replaceFragment =
             when (navigation) {
                 is NavigationEvent.SummonerSignupNavigation -> SummonerSignupFragment()
@@ -33,5 +32,16 @@ class MainActivity : AppCompatActivity() {
             }
         supportFragmentManager.beginTransaction().replace(R.id.container, replaceFragment)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        when (supportFragmentManager.findFragmentById(R.id.container)){
+            is ActiveGameFragment -> {
+                navigate(NavigationEvent.ActiveGameListNavigation())
+            }
+            else -> {
+                super.onBackPressed()
+            }
+        }
     }
 }

@@ -34,6 +34,9 @@ class ActiveGameChampionsAdapter(
         holder.bind(enemies[position])
     }
 
+    fun getCooldownMap(){
+
+    }
 
     inner class ActiveGameChampionsHolder(
         private val view: View,

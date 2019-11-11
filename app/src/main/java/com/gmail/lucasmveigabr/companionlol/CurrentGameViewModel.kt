@@ -17,4 +17,8 @@ class CurrentGameViewModel: ViewModel() {
         this.currentGame.value = currentGame
     }
 
+    override fun onCleared() {
+        super.onCleared()
+    }
+
 }

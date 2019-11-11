@@ -12,15 +12,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.lucasmveigabr.companionlol.CurrentGameViewModel
 import com.gmail.lucasmveigabr.companionlol.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.R
+import com.gmail.lucasmveigabr.companionlol.model.SummonerInGame
 import kotlinx.android.synthetic.main.fragment_active_game.*
 
 class ActiveGameFragment: Fragment() {
 
-
+    companion object {
+        private const val  GAME_STATE = "game_state"
+    }
 
     private lateinit var viewModel: ActiveGameViewModel
     private lateinit var navigationViewModel: NavigationViewModel
     private lateinit var currentGameViewModel: CurrentGameViewModel
+    private var game: SummonerInGame? = null
 
 
     override fun onCreateView(
@@ -36,7 +40,16 @@ class ActiveGameFragment: Fragment() {
         viewModel = ViewModelProvider(this)[ActiveGameViewModel::class.java]
         navigationViewModel = ViewModelProvider(this)[NavigationViewModel::class.java]
         currentGameViewModel = ViewModelProvider(requireActivity())[CurrentGameViewModel::class.java]
+        if (savedInstanceState != null){
+            val game = SummonerInGame.fromJson(savedInstanceState.getString(GAME_STATE)?:"")
+            if (game != null) {
+                this.game = game
+                viewModel.setCurrentGame(game)
+            }
+        }
+        //TODO(ACTIVITY RECREATION LOSES COOLDOWNS)
         currentGameViewModel.getCurrentGame().observe(viewLifecycleOwner, Observer {
+            this.game = it
             viewModel.setCurrentGame(it)
         })
         viewModel.getEnemies().observe(viewLifecycleOwner, Observer {
@@ -48,8 +61,12 @@ class ActiveGameFragment: Fragment() {
         })
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onSaveInstanceState(outState: Bundle) {
+        game?.let {game ->
+            outState.putString(GAME_STATE, game.toJson())
+        }
+        super.onSaveInstanceState(outState)
     }
+
 
 }
