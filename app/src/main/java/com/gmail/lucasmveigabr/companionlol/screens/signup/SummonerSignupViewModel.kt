@@ -37,8 +37,12 @@ class SummonerSignupViewModel : ViewModel() {
         Observable.create<Unit> {
             when (val result = summonerRepo.verifyIfSummonerExists(summoner, region)) {
                 is Result.Success -> {
-                    summonersDao.insertSummoner(Summoner(result.data.id, result.data.name,
-                        region))
+                    summonersDao.insertSummoner(
+                        Summoner(
+                            result.data.id, result.data.name,
+                            region
+                        )
+                    )
                     addSummonerResult.postValue(AddSummonerResult.SUCCESS)
                 }
                 is Result.Failure -> {

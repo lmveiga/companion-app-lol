@@ -182,11 +182,11 @@ class LeagueApiTd: LeagueApi {
     }
 
     private fun getSpellData(): SpellsResponse{
-        val spells = HashMap<String, SpellSumm>()
-        spells["SummonerBarrier"] = SpellSumm(ArrayList(), "desc",
+        val spells = HashMap<String, SpellSummSchema>()
+        spells["SummonerBarrier"] = SpellSummSchema(ArrayList(), "desc",
             "SummonerBarrier", ImageX("SummonerBarrier.png", 0,0,0,0),
             "21", "Barrier", ArrayList(), "", "")
-        spells["SummonerBoost"] = SpellSumm(ArrayList(), "desc",
+        spells["SummonerBoost"] = SpellSummSchema(ArrayList(), "desc",
             "SummonerBoost", ImageX("SummonerBoost.png", 0,0,0,0),
             "1", "Cleanse", ArrayList(), "", "")
         return SpellsResponse(spells, "type", "version")

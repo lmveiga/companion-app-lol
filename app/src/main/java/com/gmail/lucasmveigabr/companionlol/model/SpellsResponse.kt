@@ -1,13 +1,13 @@
 package com.gmail.lucasmveigabr.companionlol.model
 
 
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 
 @Keep
 data class SpellsResponse(
     @SerializedName("data")
-    val `data`: Map<String, SpellSumm>,
+    val `data`: Map<String, SpellSummSchema>,
     @SerializedName("type")
     val type: String, // summoner
     @SerializedName("version")

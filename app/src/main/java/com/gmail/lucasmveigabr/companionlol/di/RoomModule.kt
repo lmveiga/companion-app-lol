@@ -18,7 +18,8 @@ class RoomModule {
             .build()
 
 
-    @Provides @Singleton
+    @Provides
+    @Singleton
     fun providesSummonersDao(database: SummonerDatabase) =
         database.summonerDao()
 

@@ -23,7 +23,6 @@ class ActiveGameListViewModel : ViewModel() {
     lateinit var summonerRepo: SummonerRepo
 
 
-
     private val observers = CompositeDisposable()
 
 
@@ -33,10 +32,11 @@ class ActiveGameListViewModel : ViewModel() {
 
     fun getSummoners() = summonerDao.getSummoners()
 
-    fun getObservableForSummoner(summoner: Summoner): LiveData<SummonerInGame>{
+    fun getObservableForSummoner(summoner: Summoner): LiveData<SummonerInGame> {
         val result = MutableLiveData<SummonerInGame>()
-        observers.add(Observable.create<Unit>{
-            when (val response = summonerRepo.getSummonerActiveMatch(summoner.encryptedId, summoner.region)){
+        observers.add(Observable.create<Unit> {
+            when (val response =
+                summonerRepo.getSummonerActiveMatch(summoner.encryptedId, summoner.region)) {
                 is Result.Success -> {
                     result.postValue(SummonerInGame(false, summoner, response.data))
                 }

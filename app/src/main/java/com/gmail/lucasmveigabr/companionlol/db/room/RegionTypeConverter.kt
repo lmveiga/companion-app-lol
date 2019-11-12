@@ -2,12 +2,13 @@ package com.gmail.lucasmveigabr.companionlol.db.room
 
 import androidx.room.TypeConverter
 import com.gmail.lucasmveigabr.companionlol.model.Region
-import java.lang.RuntimeException
 
 class RegionTypeConverter {
 
     companion object {
-        @JvmStatic @TypeConverter fun toRegion(region: Int) =
+        @JvmStatic
+        @TypeConverter
+        fun toRegion(region: Int) =
             when (region) {
                 Region.BR.ordinal -> Region.BR
                 Region.NA.ordinal -> Region.NA
@@ -23,7 +24,9 @@ class RegionTypeConverter {
                 else -> throw RuntimeException("INVALID REGION")
             }
 
-        @JvmStatic @TypeConverter fun toInt(region: Region) = region.ordinal
+        @JvmStatic
+        @TypeConverter
+        fun toInt(region: Region) = region.ordinal
     }
 
 }

@@ -1,6 +1,6 @@
 package com.gmail.lucasmveigabr.companionlol.model
 
-data class ChampionSchema (
+data class ChampionSchema(
     val version: String,
     val id: String,
     val key: Int,

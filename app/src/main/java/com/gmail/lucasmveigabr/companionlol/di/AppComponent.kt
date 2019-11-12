@@ -10,7 +10,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [RoomModule::class, ContextModule::class, RetrofitModule::class ])
+@Component(modules = [RoomModule::class, ContextModule::class, RetrofitModule::class])
 interface AppComponent {
 
     fun summonerRepo(): SummonerRepo

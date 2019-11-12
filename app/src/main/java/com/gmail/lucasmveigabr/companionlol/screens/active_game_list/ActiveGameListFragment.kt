@@ -15,7 +15,7 @@ import com.gmail.lucasmveigabr.companionlol.model.NavigationEvent
 import com.gmail.lucasmveigabr.companionlol.model.SummonerInGame
 import kotlinx.android.synthetic.main.fragment_active_game_list.*
 
-class ActiveGameListFragment: Fragment() {
+class ActiveGameListFragment : Fragment() {
 
     private lateinit var viewModel: ActiveGameListViewModel
     private lateinit var navigationViewModel: NavigationViewModel
@@ -35,7 +35,7 @@ class ActiveGameListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = ActiveGameListAdapter(requireContext()){
+        adapter = ActiveGameListAdapter(requireContext()) {
             if (it?.game != null) {
                 currentGameViewModel.setCurrentGame(it)
                 navigationViewModel.setNavigation(NavigationEvent.ActiveGameNavigation())
@@ -52,7 +52,8 @@ class ActiveGameListFragment: Fragment() {
         refresh_button.setOnClickListener {
             if (System.currentTimeMillis() - refreshLastClick >= 7000) {
                 refreshLastClick = System.currentTimeMillis()
-                val summoners = adapter.getSummoners()
+                var summoners = adapter.getSummoners()
+                summoners.forEach { adapter.updateSummoner(SummonerInGame(true, it.summoner, null)) }
                 for (summoner in summoners) {
                     viewModel.getObservableForSummoner(summoner.summoner)
                         .observe(viewLifecycleOwner, Observer { updatedSummoner ->
@@ -66,16 +67,19 @@ class ActiveGameListFragment: Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ActiveGameListViewModel::class.java)
-        navigationViewModel = ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
-        currentGameViewModel = ViewModelProvider(requireActivity())[CurrentGameViewModel::class.java]
-        viewModel.getSummoners().observe(viewLifecycleOwner, Observer {summoners ->
+        navigationViewModel =
+            ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
+        currentGameViewModel =
+            ViewModelProvider(requireActivity())[CurrentGameViewModel::class.java]
+        viewModel.getSummoners().observe(viewLifecycleOwner, Observer { summoners ->
             adapter.setSummoners(summoners.map {
                 SummonerInGame(true, it, null)
             }.toMutableList())
-            for (summoner in summoners){
-                viewModel.getObservableForSummoner(summoner).observe(viewLifecycleOwner, Observer { sig ->
-                    adapter.updateSummoner(sig)
-                })
+            for (summoner in summoners) {
+                viewModel.getObservableForSummoner(summoner)
+                    .observe(viewLifecycleOwner, Observer { sig ->
+                        adapter.updateSummoner(sig)
+                    })
             }
         })
     }

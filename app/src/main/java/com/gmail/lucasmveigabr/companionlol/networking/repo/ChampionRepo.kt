@@ -1,20 +1,12 @@
 package com.gmail.lucasmveigabr.companionlol.networking.repo
 
-import android.util.LongSparseArray
-import android.util.SparseArray
-import android.util.SparseIntArray
 import androidx.collection.SparseArrayCompat
-import androidx.core.util.contains
-import androidx.core.util.containsKey
-import com.gmail.lucasmveigabr.companionlol.model.ChampionData
 import com.gmail.lucasmveigabr.companionlol.model.ChampionSchema
+import com.gmail.lucasmveigabr.companionlol.model.Result
 import com.gmail.lucasmveigabr.companionlol.networking.retrofit.LeagueApi
+import com.gmail.lucasmveigabr.companionlol.util.Endpoints
 import javax.inject.Inject
 import javax.inject.Singleton
-import com.gmail.lucasmveigabr.companionlol.model.Result
-import com.gmail.lucasmveigabr.companionlol.util.Endpoints
-import java.lang.Exception
-import java.lang.RuntimeException
 
 @Singleton
 class ChampionRepo @Inject constructor(private val leagueApi: LeagueApi) {

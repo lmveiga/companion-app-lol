@@ -17,6 +17,7 @@ package com.gmail.lucasmveigabr.companionlol.util;
  */
 
 import android.util.Log;
+
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,7 +43,8 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
 
     private final AtomicBoolean mPending = new AtomicBoolean(false);
 
-    @Override @MainThread
+    @Override
+    @MainThread
     public void observe(@NonNull LifecycleOwner owner, final @NonNull Observer<? super T> observer) {
         if (hasActiveObservers()) {
             Log.w(TAG, "Multiple observers registered but only one will be notified of changes.");

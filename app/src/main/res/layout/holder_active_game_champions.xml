@@ -37,87 +37,27 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/champion_icon"
-            app:layout_constraintEnd_toStartOf="@id/spell1_image"
+            app:layout_constraintEnd_toStartOf="@id/spell1"
             />
 
-        <ImageView
-            android:cropToPadding="true"
-            android:id="@+id/spell1_image"
-            android:background="@drawable/image_view_border_background"
+        <com.gmail.lucasmveigabr.companionlol.model.SummSpellView
+            android:id="@+id/spell1"
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
             android:layout_margin="8dp"
-            android:scaleType="fitCenter"
-            android:contentDescription="@string/summoner_spell"
-            android:src="@drawable/ic_failed_to_load"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/spell2"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/spell2_image"
             />
 
-        <View
-            android:id="@+id/spell1_darkoverlay"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="#9F000000"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@id/spell1_image"
-            app:layout_constraintBottom_toBottomOf="@id/spell1_image"
-            app:layout_constraintStart_toStartOf="@id/spell1_image"
-            app:layout_constraintEnd_toEndOf="@id/spell1_image"
-            />
-
-        <TextView
-            android:id="@+id/spell1_cd"
-            android:visibility="visible"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="@id/spell1_image"
-            app:layout_constraintBottom_toBottomOf="@id/spell1_image"
-            app:layout_constraintStart_toStartOf="@id/spell1_image"
-            app:layout_constraintEnd_toEndOf="@id/spell1_image"/>
-
-        <ImageView
-            android:cropToPadding="true"
-            android:background="@drawable/image_view_border_background"
-            android:id="@+id/spell2_image"
+        <com.gmail.lucasmveigabr.companionlol.model.SummSpellView
+            android:id="@+id/spell2"
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
             android:layout_margin="8dp"
-            android:scaleType="fitCenter"
-            android:contentDescription="@string/summoner_spell"
-            android:src="@drawable/ic_failed_to_load"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-        <View
-            android:id="@+id/spell2_darkoverlay"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="#9F000000"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@id/spell2_image"
-            app:layout_constraintBottom_toBottomOf="@id/spell2_image"
-            app:layout_constraintStart_toStartOf="@id/spell2_image"
-            app:layout_constraintEnd_toEndOf="@id/spell2_image"
-            />
-
-        <TextView
-            android:id="@+id/spell2_cd"
-            android:visibility="visible"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="@id/spell2_image"
-            app:layout_constraintBottom_toBottomOf="@id/spell2_image"
-            app:layout_constraintStart_toStartOf="@id/spell2_image"
-            app:layout_constraintEnd_toEndOf="@id/spell2_image"/>
-
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

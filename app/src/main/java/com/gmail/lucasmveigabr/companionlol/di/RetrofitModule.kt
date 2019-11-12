@@ -14,13 +14,13 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideSummonerApi(retrofit: Retrofit): LeagueApi{
+    fun provideSummonerApi(retrofit: Retrofit): LeagueApi {
         return retrofit.create(LeagueApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun providesRetrofit(client: OkHttpClient): Retrofit{
+    fun providesRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)

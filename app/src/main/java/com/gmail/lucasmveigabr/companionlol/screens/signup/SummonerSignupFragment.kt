@@ -15,7 +15,6 @@ import com.gmail.lucasmveigabr.companionlol.model.Region
 import com.gmail.lucasmveigabr.companionlol.screens.signup.SummonerSignupViewModel.AddSummonerResult.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_summoner_signup.*
-import java.lang.RuntimeException
 
 class SummonerSignupFragment : Fragment() {
 
@@ -51,7 +50,8 @@ class SummonerSignupFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SummonerSignupViewModel::class.java)
-        navigationViewModel = ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
+        navigationViewModel =
+            ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
         viewModel.getSummonerResult().observe(viewLifecycleOwner, Observer { result ->
             val view = view
             if (view != null)

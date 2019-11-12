@@ -4,7 +4,7 @@ import com.gmail.lucasmveigabr.companionlol.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class CustomReceptor: Interceptor {
+class CustomReceptor : Interceptor {
 
     var region: String = "br1"
 
@@ -12,7 +12,7 @@ class CustomReceptor: Interceptor {
         val original = chain.request()
         val builder = original.newBuilder()
             .header("X-Riot-Token", BuildConfig.RiotAPIKey)
-            //.url(original.url().url().toString().replace("region", region))
+        //.url(original.url().url().toString().replace("region", region))
         val request = builder.build()
         return chain.proceed(request)
     }

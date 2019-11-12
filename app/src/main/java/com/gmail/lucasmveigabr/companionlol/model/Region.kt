@@ -1,6 +1,6 @@
 package com.gmail.lucasmveigabr.companionlol.model
 
-enum class Region{
+enum class Region {
     BR {
         override fun toString(): String {
             return "BR"

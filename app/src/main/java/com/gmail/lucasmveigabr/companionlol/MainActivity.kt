@@ -15,15 +15,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val viewModel = ViewModelProvider(this).get(NavigationViewModel::class.java)
-        viewModel.getNavigation().observe(this, Observer {navigation ->
+        viewModel.getNavigation().observe(this, Observer { navigation ->
             navigate(navigation)
         })
-        if (supportFragmentManager.findFragmentById(R.id.container) == null){
+        if (supportFragmentManager.findFragmentById(R.id.container) == null) {
             viewModel.noFragmentsAttached()
         }
     }
 
-    fun navigate(navigation: NavigationEvent){
+    fun navigate(navigation: NavigationEvent) {
         val replaceFragment =
             when (navigation) {
                 is NavigationEvent.SummonerSignupNavigation -> SummonerSignupFragment()
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        when (supportFragmentManager.findFragmentById(R.id.container)){
+        when (supportFragmentManager.findFragmentById(R.id.container)) {
             is ActiveGameFragment -> {
                 navigate(NavigationEvent.ActiveGameListNavigation())
             }
