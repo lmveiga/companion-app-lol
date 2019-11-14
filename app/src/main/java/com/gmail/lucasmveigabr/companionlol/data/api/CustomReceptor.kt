@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol.networking.retrofit
+package com.gmail.lucasmveigabr.companionlol.data.api
 
 import com.gmail.lucasmveigabr.companionlol.BuildConfig
 import okhttp3.Interceptor

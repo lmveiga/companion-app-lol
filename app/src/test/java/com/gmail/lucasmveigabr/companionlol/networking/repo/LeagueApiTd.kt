@@ -1,7 +1,7 @@
 package com.gmail.lucasmveigabr.companionlol.networking.repo
 
 import com.gmail.lucasmveigabr.companionlol.model.*
-import com.gmail.lucasmveigabr.companionlol.networking.retrofit.LeagueApi
+import com.gmail.lucasmveigabr.companionlol.data.api.LeagueApi
 import okhttp3.Request
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -184,11 +184,11 @@ class LeagueApiTd: LeagueApi {
     private fun getSpellData(): SpellsResponse{
         val spells = HashMap<String, SpellSummSchema>()
         spells["SummonerBarrier"] = SpellSummSchema(ArrayList(), "desc",
-            "SummonerBarrier", ImageX("SummonerBarrier.png", 0,0,0,0),
-            "21", "Barrier", ArrayList(), "", "")
+            ImageX("SummonerBarrier.png", 0,0,0,0),
+            "21", "Barrier")
         spells["SummonerBoost"] = SpellSummSchema(ArrayList(), "desc",
-            "SummonerBoost", ImageX("SummonerBoost.png", 0,0,0,0),
-            "1", "Cleanse", ArrayList(), "", "")
+             ImageX("SummonerBoost.png", 0,0,0,0),
+            "1", "Cleanse")
         return SpellsResponse(spells, "type", "version")
     }
 

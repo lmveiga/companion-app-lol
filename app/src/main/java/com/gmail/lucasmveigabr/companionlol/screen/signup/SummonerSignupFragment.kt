@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol.screens.signup
+package com.gmail.lucasmveigabr.companionlol.screen.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.gmail.lucasmveigabr.companionlol.NavigationViewModel
+import com.gmail.lucasmveigabr.companionlol.core.navigation.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.model.NavigationEvent
 import com.gmail.lucasmveigabr.companionlol.model.Region
-import com.gmail.lucasmveigabr.companionlol.screens.signup.SummonerSignupViewModel.AddSummonerResult.*
+import com.gmail.lucasmveigabr.companionlol.screen.signup.SummonerSignupViewModel.AddSummonerResult.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_summoner_signup.*
 
@@ -57,7 +57,7 @@ class SummonerSignupFragment : Fragment() {
             if (view != null)
                 when (result) {
                     SUCCESS ->
-                        navigationViewModel.setNavigation(NavigationEvent.ActiveGameListNavigation())
+                        navigationViewModel.setNavigation(NavigationEvent.ActiveGameListNavigation)
                     NOT_FOUND -> Snackbar.make(
                         view,
                         "Summoner não encontrado",

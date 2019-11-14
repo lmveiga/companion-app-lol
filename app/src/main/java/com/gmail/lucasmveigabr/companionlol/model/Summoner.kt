@@ -3,7 +3,7 @@ package com.gmail.lucasmveigabr.companionlol.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.gmail.lucasmveigabr.companionlol.db.room.RegionTypeConverter
+import com.gmail.lucasmveigabr.companionlol.data.db.typeconverter.RegionTypeConverter
 
 @Entity
 @TypeConverters(RegionTypeConverter::class)

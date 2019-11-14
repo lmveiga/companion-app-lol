@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol
+package com.gmail.lucasmveigabr.companionlol.screen.activegame
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,10 +14,6 @@ class CurrentGameViewModel : ViewModel() {
 
     fun setCurrentGame(currentGame: SummonerInGame) {
         this.currentGame.value = currentGame
-    }
-
-    override fun onCleared() {
-        super.onCleared()
     }
 
 }

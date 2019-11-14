@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol.screens.active_game
+package com.gmail.lucasmveigabr.companionlol.screen.activegame
 
 import android.content.Context
 import android.view.LayoutInflater

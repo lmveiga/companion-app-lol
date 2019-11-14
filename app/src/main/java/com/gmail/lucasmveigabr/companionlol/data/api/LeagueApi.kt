@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol.networking.retrofit
+package com.gmail.lucasmveigabr.companionlol.data.api
 
 import com.gmail.lucasmveigabr.companionlol.model.ChampionData
 import com.gmail.lucasmveigabr.companionlol.model.SpellsResponse

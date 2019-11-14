@@ -1,12 +1,12 @@
-package com.gmail.lucasmveigabr.companionlol.screens.active_game
+package com.gmail.lucasmveigabr.companionlol.screen.activegame
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gmail.lucasmveigabr.companionlol.App
+import com.gmail.lucasmveigabr.companionlol.app.App
 import com.gmail.lucasmveigabr.companionlol.model.*
-import com.gmail.lucasmveigabr.companionlol.networking.repo.ChampionRepo
-import com.gmail.lucasmveigabr.companionlol.networking.repo.SpellsRepo
+import com.gmail.lucasmveigabr.companionlol.data.repository.ChampionRepo
+import com.gmail.lucasmveigabr.companionlol.data.repository.SpellsRepo
 import com.gmail.lucasmveigabr.companionlol.util.Endpoints
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers

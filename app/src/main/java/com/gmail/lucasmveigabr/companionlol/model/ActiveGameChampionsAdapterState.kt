@@ -6,23 +6,24 @@ data class ActiveGameChampionsAdapterState(
     val enemies: List<EnemySummoner>
 ) {
 
+    fun toJson(): String {
+        val gson = GsonBuilder().create()
+        return gson.toJson(this)
+    }
+
     companion object {
 
         @JvmStatic
         fun fromJson(json: String): ActiveGameChampionsAdapterState? {
-            try {
+            return try {
                 val gson = GsonBuilder().create()
-                return gson.fromJson(json, ActiveGameChampionsAdapterState::class.java)
+                gson.fromJson(json, ActiveGameChampionsAdapterState::class.java)
             } catch (ex: Exception) {
                 ex.printStackTrace()
-                return null
+                null
             }
         }
 
     }
 
-    fun toJson(): String {
-        val gson = GsonBuilder().create()
-        return gson.toJson(this)
-    }
 }

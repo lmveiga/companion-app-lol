@@ -23,7 +23,7 @@ data class SummonerInGame(
 
     override fun equals(other: Any?): Boolean {
         if (other !is SummonerInGame) return false
-        return summoner.encryptedId == (other as SummonerInGame).summoner.encryptedId
+        return summoner.encryptedId == other.summoner.encryptedId
     }
 
     override fun hashCode(): Int {

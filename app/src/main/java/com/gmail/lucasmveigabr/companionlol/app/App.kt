@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol
+package com.gmail.lucasmveigabr.companionlol.app
 
 import android.app.Application
 import com.gmail.lucasmveigabr.companionlol.di.AppComponent

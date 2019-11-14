@@ -1,5 +1,6 @@
 package com.gmail.lucasmveigabr.companionlol.networking.repo
 
+import com.gmail.lucasmveigabr.companionlol.data.repository.SpellsRepo
 import com.gmail.lucasmveigabr.companionlol.model.Result
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.instanceOf

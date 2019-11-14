@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol.screens.active_game_list
+package com.gmail.lucasmveigabr.companionlol.screen.activegamelist
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -60,7 +60,7 @@ class ActiveGameListAdapter(val context: Context, val onClick: ((SummonerInGame?
 
         fun bindHolder(item: SummonerInGame) {
             view.summoner_name_text_view.text =
-                "${item.summoner.region.toString()} - ${item.summoner.summonnerName}"
+                "${item.summoner.region} - ${item.summoner.summonnerName}"
             view.game_active_image.setVisible(item.game != null)
             view.progress_bar.setVisible(item.isLoading)
         }

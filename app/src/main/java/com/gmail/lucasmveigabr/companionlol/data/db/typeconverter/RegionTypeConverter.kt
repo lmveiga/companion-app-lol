@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol.db.room
+package com.gmail.lucasmveigabr.companionlol.data.db.typeconverter
 
 import androidx.room.TypeConverter
 import com.gmail.lucasmveigabr.companionlol.model.Region
@@ -6,6 +6,7 @@ import com.gmail.lucasmveigabr.companionlol.model.Region
 class RegionTypeConverter {
 
     companion object {
+
         @JvmStatic
         @TypeConverter
         fun toRegion(region: Int) =

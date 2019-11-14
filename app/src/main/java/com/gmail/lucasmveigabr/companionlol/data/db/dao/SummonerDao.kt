@@ -1,10 +1,7 @@
-package com.gmail.lucasmveigabr.companionlol.db.room
+package com.gmail.lucasmveigabr.companionlol.data.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.gmail.lucasmveigabr.companionlol.model.Summoner
 
 @Dao
@@ -18,5 +15,8 @@ interface SummonerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSummoner(summoner: Summoner)
+
+    @Delete
+    fun deleteSummoner(summoner: Summoner)
 
 }

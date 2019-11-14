@@ -1,7 +1,7 @@
 package com.gmail.lucasmveigabr.companionlol.di
 
-import com.gmail.lucasmveigabr.companionlol.networking.retrofit.CustomReceptor
-import com.gmail.lucasmveigabr.companionlol.networking.retrofit.LeagueApi
+import com.gmail.lucasmveigabr.companionlol.data.api.CustomReceptor
+import com.gmail.lucasmveigabr.companionlol.data.api.LeagueApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -24,7 +24,6 @@ class RetrofitModule {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
-            .baseUrl("https://region.api.riotgames.com")
             .build()
     }
 
@@ -38,6 +37,7 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideReceptor(): CustomReceptor = CustomReceptor()
+    fun provideReceptor(): CustomReceptor =
+        CustomReceptor()
 
 }

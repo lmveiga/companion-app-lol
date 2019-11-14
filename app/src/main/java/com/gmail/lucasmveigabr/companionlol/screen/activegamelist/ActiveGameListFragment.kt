@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol.screens.active_game_list
+package com.gmail.lucasmveigabr.companionlol.screen.activegamelist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gmail.lucasmveigabr.companionlol.CurrentGameViewModel
-import com.gmail.lucasmveigabr.companionlol.NavigationViewModel
+import com.gmail.lucasmveigabr.companionlol.screen.activegame.CurrentGameViewModel
+import com.gmail.lucasmveigabr.companionlol.core.navigation.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.model.NavigationEvent
 import com.gmail.lucasmveigabr.companionlol.model.SummonerInGame
@@ -38,7 +38,7 @@ class ActiveGameListFragment : Fragment() {
         adapter = ActiveGameListAdapter(requireContext()) {
             if (it?.game != null) {
                 currentGameViewModel.setCurrentGame(it)
-                navigationViewModel.setNavigation(NavigationEvent.ActiveGameNavigation())
+                navigationViewModel.setNavigation(NavigationEvent.ActiveGameNavigation)
             }
         }
         summoners_recycler_view.layoutManager = LinearLayoutManager(requireContext())
@@ -46,14 +46,22 @@ class ActiveGameListFragment : Fragment() {
         register_new_summoner_button.setOnClickListener {
             if (System.currentTimeMillis() - registerNewSummonerLastClick >= 6000) {
                 registerNewSummonerLastClick = System.currentTimeMillis()
-                navigationViewModel.setNavigation(NavigationEvent.SummonerSignupNavigation(false))
+                navigationViewModel.setNavigation(NavigationEvent.SummonerSignUpNavigation)
             }
         }
         refresh_button.setOnClickListener {
             if (System.currentTimeMillis() - refreshLastClick >= 7000) {
                 refreshLastClick = System.currentTimeMillis()
                 var summoners = adapter.getSummoners()
-                summoners.forEach { adapter.updateSummoner(SummonerInGame(true, it.summoner, null)) }
+                summoners.forEach {
+                    adapter.updateSummoner(
+                        SummonerInGame(
+                            true,
+                            it.summoner,
+                            null
+                        )
+                    )
+                }
                 for (summoner in summoners) {
                     viewModel.getObservableForSummoner(summoner.summoner)
                         .observe(viewLifecycleOwner, Observer { updatedSummoner ->

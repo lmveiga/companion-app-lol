@@ -1,5 +1,6 @@
 package com.gmail.lucasmveigabr.companionlol.networking.repo
 
+import com.gmail.lucasmveigabr.companionlol.data.repository.SummonerRepo
 import com.gmail.lucasmveigabr.companionlol.model.Region
 import com.gmail.lucasmveigabr.companionlol.model.Result
 import com.gmail.lucasmveigabr.companionlol.model.SummonerNotInMatchException

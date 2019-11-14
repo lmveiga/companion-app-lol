@@ -1,11 +1,8 @@
 package com.gmail.lucasmveigabr.companionlol.networking.repo
 
-import com.gmail.lucasmveigabr.companionlol.model.ChampionData
-import com.gmail.lucasmveigabr.companionlol.model.ChampionSchema
+import com.gmail.lucasmveigabr.companionlol.data.repository.ChampionRepo
 import com.gmail.lucasmveigabr.companionlol.model.Result
-import com.gmail.lucasmveigabr.companionlol.networking.retrofit.LeagueApi
 import org.hamcrest.CoreMatchers.*
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test

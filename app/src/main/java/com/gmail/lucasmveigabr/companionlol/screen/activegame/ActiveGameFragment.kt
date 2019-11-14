@@ -1,4 +1,4 @@
-package com.gmail.lucasmveigabr.companionlol.screens.active_game
+package com.gmail.lucasmveigabr.companionlol.screen.activegame
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gmail.lucasmveigabr.companionlol.CurrentGameViewModel
-import com.gmail.lucasmveigabr.companionlol.NavigationViewModel
+import com.gmail.lucasmveigabr.companionlol.core.navigation.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.model.ActiveGameChampionsAdapterState
 import com.gmail.lucasmveigabr.companionlol.model.EnemySummoner
