@@ -20,14 +20,13 @@ class ActiveGameViewModel : ViewModel() {
     @Inject
     lateinit var spellsRepo: SpellsRepo
 
-    private val currentGame = MutableLiveData<SummonerInGame>()
-    private val enemies = MutableLiveData<List<EnemySummoner>>()
+    private val _enemies = MutableLiveData<List<EnemySummoner>>()
+    val enemies: LiveData<List<EnemySummoner>>
+        get() = _enemies
 
     init {
         App.appComponent?.inject(this)
     }
-
-    fun getEnemies(): LiveData<List<EnemySummoner>> = enemies
 
     private fun getEnemySpellOrNull(id: Int): SpellSummSchema? {
         when (val result = spellsRepo.getSpell(id)) {
@@ -41,8 +40,6 @@ class ActiveGameViewModel : ViewModel() {
     }
 
     fun setCurrentGame(game: SummonerInGame, recreation: Boolean = false) {
-        if (currentGame.value != null) return
-        currentGame.value = game
         if (recreation) return
         val user =
             game.game?.participants?.firstOrNull { it.summonerId == game.summoner.encryptedId }
@@ -74,7 +71,7 @@ class ActiveGameViewModel : ViewModel() {
                     }
                 }
             }
-            this.enemies.postValue(enemyList)
+            _enemies.postValue(enemyList)
         }.subscribeOn(Schedulers.io()).subscribe()
     }
 

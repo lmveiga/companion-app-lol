@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.holder_active_game_champions.view.*
 class ActiveGameChampionsAdapter(
     val context: Context,
     val enemies: List<EnemySummoner>,
-    val onClick: ((EnemySummoner) -> Unit)
+    private val onClick: ((EnemySummoner) -> Unit) = {}
 ) :
     RecyclerView.Adapter<ActiveGameChampionsAdapter.ActiveGameChampionsHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActiveGameChampionsHolder {
