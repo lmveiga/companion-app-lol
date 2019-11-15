@@ -67,10 +67,8 @@ class SummSpellView @JvmOverloads constructor(
     }
 
     override fun onClick(v: View?) {
-        spell?.let { spell ->
-            if (cooldownTimer == null || !isRunning) {
-                setupTimer()
-            }
+        if (cooldownTimer == null || !isRunning) {
+            setupTimer()
         }
     }
 

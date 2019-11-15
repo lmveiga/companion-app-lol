@@ -9,10 +9,11 @@ import com.bumptech.glide.Glide
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.model.EnemySummoner
 import kotlinx.android.synthetic.main.holder_active_game_champions.view.*
+import java.util.*
 
 class ActiveGameChampionsAdapter(
     val context: Context,
-    val enemies: List<EnemySummoner>,
+    val enemies: MutableList<EnemySummoner>,
     private val onClick: ((EnemySummoner) -> Unit) = {}
 ) :
     RecyclerView.Adapter<ActiveGameChampionsAdapter.ActiveGameChampionsHolder>() {
@@ -28,6 +29,11 @@ class ActiveGameChampionsAdapter(
 
     override fun onBindViewHolder(holder: ActiveGameChampionsHolder, position: Int) {
         holder.bind(enemies[position])
+    }
+
+    fun championMoved(initialPos: Int, finalPos: Int){
+        Collections.swap(enemies, initialPos, finalPos)
+        notifyItemMoved(initialPos, finalPos)
     }
 
 

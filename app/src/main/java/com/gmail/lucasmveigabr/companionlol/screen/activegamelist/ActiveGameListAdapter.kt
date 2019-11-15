@@ -5,6 +5,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.model.SummonerInGame
@@ -13,39 +15,14 @@ import kotlinx.android.synthetic.main.holder_summoners_active_game.view.*
 import java.util.*
 
 class ActiveGameListAdapter(val context: Context, private val onClick: ((SummonerInGame?) -> Unit)) :
-    RecyclerView.Adapter<ActiveGameListAdapter.ActiveGameListHolder>() {
+    ListAdapter<SummonerInGame, ActiveGameListAdapter.ActiveGameListHolder>(SummonerInGame.diffUtil) {
 
-    private var summoners: MutableList<SummonerInGame> = Collections.emptyList()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActiveGameListHolder {
-        val v = LayoutInflater.from(context)
-            .inflate(R.layout.holder_summoners_active_game, parent, false)
-        return ActiveGameListHolder(v, onClick)
-    }
-
-    override fun getItemCount(): Int {
-        return summoners.size
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActiveGameListHolder =
+        ActiveGameListHolder(LayoutInflater.from(context)
+            .inflate(R.layout.holder_summoners_active_game, parent, false), onClick)
 
     override fun onBindViewHolder(holder: ActiveGameListHolder, position: Int) {
-        holder.bindHolder(summoners[position])
-    }
-
-    fun setSummoners(list: MutableList<SummonerInGame>) {
-        summoners = list
-        notifyDataSetChanged()
-    }
-
-    fun getSummoners() = summoners
-
-    fun updateSummoner(summoner: SummonerInGame) {
-        try {
-            val index = summoners.indexOf(summoner)
-            summoners[index] = summoner
-            notifyItemChanged(index)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        holder.bindHolder(getItem(position))
     }
 
     inner class ActiveGameListHolder(
@@ -55,7 +32,7 @@ class ActiveGameListAdapter(val context: Context, private val onClick: ((Summone
 
         init {
             view.setOnClickListener {
-                onClick(summoners[adapterPosition])
+                onClick(getItem(adapterPosition))
             }
         }
 

@@ -11,11 +11,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.lucasmveigabr.companionlol.screen.activegame.CurrentGameViewModel
 import com.gmail.lucasmveigabr.companionlol.core.navigation.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.R
+import com.gmail.lucasmveigabr.companionlol.app.App
 import com.gmail.lucasmveigabr.companionlol.model.NavigationEvent
-import com.gmail.lucasmveigabr.companionlol.model.SummonerInGame
 import kotlinx.android.synthetic.main.fragment_active_game_list.*
+import javax.inject.Inject
 
 class ActiveGameListFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: ActiveGameListViewModel
     private lateinit var navigationViewModel: NavigationViewModel
@@ -24,6 +28,11 @@ class ActiveGameListFragment : Fragment() {
 
     private var refreshLastClick: Long = 0
     private var registerNewSummonerLastClick: Long = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        App.appComponent?.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,22 +58,7 @@ class ActiveGameListFragment : Fragment() {
         refresh_button.setOnClickListener {
             if (System.currentTimeMillis() - refreshLastClick >= 7000) {
                 refreshLastClick = System.currentTimeMillis()
-                var summoners = adapter.getSummoners()
-                summoners.forEach {
-                    adapter.updateSummoner(
-                        SummonerInGame(
-                            true,
-                            it.summoner,
-                            null
-                        )
-                    )
-                }
-                for (summoner in summoners) {
-                    viewModel.getObservableForSummoner(summoner.summoner)
-                        .observe(viewLifecycleOwner, Observer { updatedSummoner ->
-                            adapter.updateSummoner(updatedSummoner)
-                        })
-                }
+                viewModel.refreshButtonClicked()
             }
         }
     }
@@ -90,7 +84,7 @@ class ActiveGameListFragment : Fragment() {
     }
 
     private fun loadViewModel() {
-        viewModel = ViewModelProvider(this).get(ActiveGameListViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ActiveGameListViewModel::class.java)
         navigationViewModel =
             ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
         currentGameViewModel =
@@ -98,16 +92,8 @@ class ActiveGameListFragment : Fragment() {
     }
 
     private fun subscribeToData() {
-        viewModel.getSummoners().observe(viewLifecycleOwner, Observer { summoners ->
-            adapter.setSummoners(summoners.map {
-                SummonerInGame(true, it, null)
-            }.toMutableList())
-            for (summoner in summoners) {
-                viewModel.getObservableForSummoner(summoner)
-                    .observe(viewLifecycleOwner, Observer { sig ->
-                        adapter.updateSummoner(sig)
-                    })
-            }
+        viewModel.summoners.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
         })
     }
 

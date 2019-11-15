@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.core.navigation.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.model.ActiveGameChampionsAdapterState
@@ -39,12 +41,32 @@ class ActiveGameFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        champions_recycler_view.layoutManager = LinearLayoutManager(requireContext())
+        setupRecyclerView()
         loadViewModel()
         if (savedInstanceState != null) {
             loadSavedState(savedInstanceState)
         }
         subscribeToData()
+    }
+
+    private fun setupRecyclerView() {
+        champions_recycler_view.layoutManager = LinearLayoutManager(requireContext())
+        val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            0
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                adapter?.championMoved(viewHolder.adapterPosition, target.adapterPosition)
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+        })
+        touchHelper.attachToRecyclerView(champions_recycler_view)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -70,7 +92,8 @@ class ActiveGameFragment : Fragment() {
 
     private fun loadSavedState(savedInstanceState: Bundle) {
         val game = savedInstanceState.getParcelable<SummonerInGame>(GAME_STATE)
-        val enemies = savedInstanceState.getParcelable<ActiveGameChampionsAdapterState>(ADAPTER_STATE)
+        val enemies =
+            savedInstanceState.getParcelable<ActiveGameChampionsAdapterState>(ADAPTER_STATE)
         this.game = game
         if (enemies == null && game != null) {
             viewModel.setCurrentGame(game)
@@ -89,7 +112,7 @@ class ActiveGameFragment : Fragment() {
 
     private fun setupEnemyChampions(it: List<EnemySummoner>) {
         progress_bar.setVisible(false)
-        adapter = ActiveGameChampionsAdapter(requireContext(), it)
+        adapter = ActiveGameChampionsAdapter(requireContext(), it.toMutableList())
         champions_recycler_view.adapter = adapter
     }
 

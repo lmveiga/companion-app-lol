@@ -8,7 +8,10 @@ import com.gmail.lucasmveigabr.companionlol.model.Summoner
 interface SummonerDao {
 
     @Query("SELECT * FROM SUMMONER ORDER BY summonnerName")
-    fun getSummoners(): LiveData<List<Summoner>>
+    fun getSummonersLiveData(): LiveData<List<Summoner>>
+
+    @Query("SELECT * FROM SUMMONER ORDER BY summonnerName COLLATE NOCASE")
+    fun getSummoners(): List<Summoner>
 
     @Query("SELECT COUNT(*) FROM SUMMONER ORDER BY summonnerName")
     fun getSummonerCount(): Int
