@@ -1,25 +1,15 @@
 package com.gmail.lucasmveigabr.companionlol.model
 
+import android.os.Parcelable
 import com.google.gson.GsonBuilder
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class SummonerInGame(
     val isLoading: Boolean,
     val summoner: Summoner,
     val game: SummonerMatchStatus?
-) {
-
-    companion object {
-        @JvmStatic
-        fun fromJson(json: String): SummonerInGame? {
-            try {
-                val gson = GsonBuilder().create()
-                return gson.fromJson<SummonerInGame>(json, SummonerInGame::class.java)
-            } catch (ex: Exception) {
-                ex.printStackTrace()
-                return null
-            }
-        }
-    }
+): Parcelable {
 
     override fun equals(other: Any?): Boolean {
         if (other !is SummonerInGame) return false
@@ -30,8 +20,4 @@ data class SummonerInGame(
         return summoner.encryptedId.hashCode()
     }
 
-    fun toJson(): String {
-        val gson = GsonBuilder().create()
-        return gson.toJson(this)
-    }
 }

@@ -29,20 +29,17 @@ class ActiveGameListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_active_game_list, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_active_game_list, container, false)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = ActiveGameListAdapter(requireContext()) {
-            if (it?.game != null) {
-                currentGameViewModel.setCurrentGame(it)
-                navigationViewModel.setNavigation(NavigationEvent.ActiveGameNavigation)
-            }
-        }
-        summoners_recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        summoners_recycler_view.adapter = adapter
+        setupAdapter()
+        setupRecyclerView()
+        setupViewListeners()
+    }
+
+    private fun setupViewListeners() {
         register_new_summoner_button.setOnClickListener {
             if (System.currentTimeMillis() - registerNewSummonerLastClick >= 6000) {
                 registerNewSummonerLastClick = System.currentTimeMillis()
@@ -72,13 +69,35 @@ class ActiveGameListFragment : Fragment() {
         }
     }
 
+    private fun setupRecyclerView() {
+        summoners_recycler_view.layoutManager = LinearLayoutManager(requireContext())
+        summoners_recycler_view.adapter = adapter
+    }
+
+    private fun setupAdapter() {
+        adapter = ActiveGameListAdapter(requireContext()) {
+            if (it?.game != null) {
+                currentGameViewModel.setCurrentGame(it)
+                navigationViewModel.setNavigation(NavigationEvent.ActiveGameNavigation)
+            }
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        loadViewModel()
+        subscribeToData()
+    }
+
+    private fun loadViewModel() {
         viewModel = ViewModelProvider(this).get(ActiveGameListViewModel::class.java)
         navigationViewModel =
             ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
         currentGameViewModel =
             ViewModelProvider(requireActivity())[CurrentGameViewModel::class.java]
+    }
+
+    private fun subscribeToData() {
         viewModel.getSummoners().observe(viewLifecycleOwner, Observer { summoners ->
             adapter.setSummoners(summoners.map {
                 SummonerInGame(true, it, null)

@@ -1,9 +1,9 @@
 package com.gmail.lucasmveigabr.companionlol.data.repository
 
 import androidx.collection.SparseArrayCompat
+import com.gmail.lucasmveigabr.companionlol.data.api.LeagueApi
 import com.gmail.lucasmveigabr.companionlol.model.Result
 import com.gmail.lucasmveigabr.companionlol.model.SpellSummSchema
-import com.gmail.lucasmveigabr.companionlol.data.api.LeagueApi
 import com.gmail.lucasmveigabr.companionlol.util.Endpoints
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -16,17 +16,22 @@ class SpellsRepo @Inject constructor(private val leagueApi: LeagueApi) {
     @Synchronized
     fun getSpell(id: Int): Result<SpellSummSchema> {
         try {
-            val cachedValue = cache.get(id)
-            if (cachedValue != null) return Result.Success(cachedValue)
-            val result = leagueApi.getSpells(Endpoints.summonersSpells()).execute()
-            result.body()?.let {
-                var result: SpellSummSchema? = null
-                for (spell in it.data) {
-                    if (spell.value.key == id.toString()) result = spell.value
-                    cache.put(spell.value.key.toInt(), spell.value)
-                }
-                result?.let { return Result.Success(result) }
+            var result = cache.get(id)
+            if (result != null) return Result.Success(result)
+
+            val response = leagueApi.getSpells(Endpoints.summonersSpells()).execute()
+            val data = response.body()
+
+            if (!response.isSuccessful || data == null) {
+                return Result.Failure(Exception("Request Error"))
             }
+
+            for (spell in data.data) {
+                if (spell.value.key == id.toString()) result = spell.value
+                cache.put(spell.value.key.toInt(), spell.value)
+            }
+            if (result != null) return Result.Success(result)
+
             return Result.Failure(Exception("Unable to find summoner spell"))
         } catch (ex: Exception) {
             ex.printStackTrace()

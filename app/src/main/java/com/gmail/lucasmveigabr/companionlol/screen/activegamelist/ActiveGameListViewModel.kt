@@ -2,6 +2,7 @@ package com.gmail.lucasmveigabr.companionlol.screen.activegamelist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.gmail.lucasmveigabr.companionlol.app.App
 import com.gmail.lucasmveigabr.companionlol.data.db.dao.SummonerDao
@@ -24,6 +25,9 @@ class ActiveGameListViewModel : ViewModel() {
 
 
     private val observers = CompositeDisposable()
+    private val _summoners = Transformations.switchMap(summonerDao.getSummoners()){
+
+    }
 
 
     init {
@@ -46,6 +50,10 @@ class ActiveGameListViewModel : ViewModel() {
             }
         }.subscribeOn(Schedulers.io()).subscribe())
         return result
+    }
+
+    fun fetchSummonersGame(summoners: List<Summoner>): Observable<SummonerInGame>{
+        
     }
 
     override fun onCleared() {

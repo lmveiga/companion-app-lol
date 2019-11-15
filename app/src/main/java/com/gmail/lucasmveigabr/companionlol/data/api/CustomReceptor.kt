@@ -6,8 +6,6 @@ import okhttp3.Response
 
 class CustomReceptor : Interceptor {
 
-    var region: String = "br1"
-
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
         val builder = original.newBuilder()

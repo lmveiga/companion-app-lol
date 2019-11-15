@@ -19,8 +19,6 @@ import kotlinx.android.synthetic.main.fragment_active_game.*
 private const val GAME_STATE = "game_state"
 private const val ADAPTER_STATE = "adapter_state"
 
-//TODO("Change json state to parceable implementation")
-
 class ActiveGameFragment : Fragment() {
 
     private lateinit var viewModel: ActiveGameViewModel
@@ -51,18 +49,17 @@ class ActiveGameFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         game?.let { game ->
-            outState.putString(GAME_STATE, game.toJson())
+            outState.putParcelable(GAME_STATE, game)
         }
         val enemies = adapter?.enemies
         if (enemies != null) {
-            val json = ActiveGameChampionsAdapterState(enemies).toJson()
-            outState.putString(ADAPTER_STATE, json)
+            outState.putParcelable(ADAPTER_STATE, ActiveGameChampionsAdapterState(enemies))
         }
         super.onSaveInstanceState(outState)
     }
 
     private fun subscribeToData() {
-        currentGameViewModel.getCurrentGame().observe(viewLifecycleOwner, Observer {
+        currentGameViewModel.currentGame.observe(viewLifecycleOwner, Observer {
             this.game = it
             viewModel.setCurrentGame(it)
         })
@@ -72,10 +69,8 @@ class ActiveGameFragment : Fragment() {
     }
 
     private fun loadSavedState(savedInstanceState: Bundle) {
-        val game = SummonerInGame
-            .fromJson(savedInstanceState.getString(GAME_STATE) ?: "")
-        val enemies = ActiveGameChampionsAdapterState
-            .fromJson(savedInstanceState.getString(ADAPTER_STATE) ?: "")
+        val game = savedInstanceState.getParcelable<SummonerInGame>(GAME_STATE)
+        val enemies = savedInstanceState.getParcelable<ActiveGameChampionsAdapterState>(ADAPTER_STATE)
         this.game = game
         if (enemies == null && game != null) {
             viewModel.setCurrentGame(game)

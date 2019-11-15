@@ -22,6 +22,7 @@ class RetrofitModule {
     @Singleton
     fun providesRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
+            .baseUrl("https://br1.api.riotgames.com")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

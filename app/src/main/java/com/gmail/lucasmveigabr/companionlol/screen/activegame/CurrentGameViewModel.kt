@@ -7,13 +7,11 @@ import com.gmail.lucasmveigabr.companionlol.model.SummonerInGame
 
 class CurrentGameViewModel : ViewModel() {
 
-    private val currentGame = MutableLiveData<SummonerInGame>()
-
-
-    fun getCurrentGame(): LiveData<SummonerInGame> = currentGame
+    private val _currentGame = MutableLiveData<SummonerInGame>()
+    val currentGame: LiveData<SummonerInGame> get() = _currentGame
 
     fun setCurrentGame(currentGame: SummonerInGame) {
-        this.currentGame.value = currentGame
+        this._currentGame.value = currentGame
     }
 
 }
