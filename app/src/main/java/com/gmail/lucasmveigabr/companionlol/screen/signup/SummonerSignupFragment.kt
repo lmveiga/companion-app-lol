@@ -12,13 +12,17 @@ import com.gmail.lucasmveigabr.companionlol.core.navigation.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.model.NavigationEvent
 import com.gmail.lucasmveigabr.companionlol.model.Region
-import com.gmail.lucasmveigabr.companionlol.screen.signup.SummonerSignupViewModel.AddSummonerResult.*
+import com.gmail.lucasmveigabr.companionlol.screen.signup.SummonerSignUpViewModel.AddSummonerResult.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_summoner_signup.*
+import javax.inject.Inject
 
 class SummonerSignupFragment : Fragment() {
 
-    private lateinit var viewModel: SummonerSignupViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private lateinit var viewModel: SummonerSignUpViewModel
     private lateinit var navigationViewModel: NavigationViewModel
     private var buttonLastClick: Long = 0
 
@@ -49,9 +53,9 @@ class SummonerSignupFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SummonerSignupViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(SummonerSignUpViewModel::class.java)
         navigationViewModel =
-            ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
+            ViewModelProvider(requireActivity(), viewModelFactory).get(NavigationViewModel::class.java)
         viewModel.getSummonerResult().observe(viewLifecycleOwner, Observer { result ->
             val view = view
             if (view != null)

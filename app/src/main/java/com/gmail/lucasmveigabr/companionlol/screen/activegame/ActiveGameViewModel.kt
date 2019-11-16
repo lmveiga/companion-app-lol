@@ -13,13 +13,10 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class ActiveGameViewModel : ViewModel() {
+class ActiveGameViewModel @Inject constructor(private val championRepo: ChampionRepo,
+                                              private val spellsRepo: SpellsRepo) : ViewModel() {
 
-    @Inject
-    lateinit var championRepo: ChampionRepo
-
-    @Inject
-    lateinit var spellsRepo: SpellsRepo
+    //TODO(ORDER BY CHAMP ROLE)
 
     private val disposables = CompositeDisposable()
 
@@ -27,9 +24,6 @@ class ActiveGameViewModel : ViewModel() {
     val enemies: LiveData<List<EnemySummoner>>
         get() = _enemies
 
-    init {
-        App.appComponent?.inject(this)
-    }
 
 
     fun setCurrentGame(game: SummonerInGame) {

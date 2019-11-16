@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gmail.lucasmveigabr.companionlol.model.SummonerInGame
+import javax.inject.Inject
 
-class CurrentGameViewModel : ViewModel() {
+class CurrentGameViewModel @Inject constructor() : ViewModel() {
 
     private val _currentGame = MutableLiveData<SummonerInGame>()
     val currentGame: LiveData<SummonerInGame> get() = _currentGame

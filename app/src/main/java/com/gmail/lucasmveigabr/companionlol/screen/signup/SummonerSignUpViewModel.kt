@@ -3,7 +3,6 @@ package com.gmail.lucasmveigabr.companionlol.screen.signup
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.gmail.lucasmveigabr.companionlol.app.App
 import com.gmail.lucasmveigabr.companionlol.data.db.dao.SummonerDao
 import com.gmail.lucasmveigabr.companionlol.model.Region
 import com.gmail.lucasmveigabr.companionlol.model.Result
@@ -15,20 +14,12 @@ import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class SummonerSignupViewModel : ViewModel() {
+class SummonerSignUpViewModel @Inject constructor(private val summonerRepo: SummonerRepo, private val summonerDao: SummonerDao): ViewModel() {
 
-    init {
-        App.appComponent?.inject(this)
-    }
 
     enum class AddSummonerResult { SUCCESS, NOT_FOUND, NETWORK_ERROR }
 
     private val addSummonerResult = SingleLiveEvent<AddSummonerResult>()
-
-    @Inject
-    lateinit var summonerRepo: SummonerRepo
-    @Inject
-    lateinit var summonersDao: SummonerDao
 
     fun getSummonerResult(): LiveData<AddSummonerResult> = addSummonerResult
 
@@ -37,7 +28,7 @@ class SummonerSignupViewModel : ViewModel() {
         Observable.create<Unit> {
             when (val result = summonerRepo.verifyIfSummonerExists(summoner, region)) {
                 is Result.Success -> {
-                    summonersDao.insertSummoner(
+                    summonerDao.insertSummoner(
                         Summoner(
                             result.data.id, result.data.name,
                             region

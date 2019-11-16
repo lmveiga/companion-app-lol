@@ -52,6 +52,10 @@ object Endpoints {
         return "http://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/img/spell/${filename}"
     }
 
+    fun profileIcon(id: Int): String {
+        return "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/profileicon/${id}.png"
+    }
+
     fun version(): String {
         return "https://ddragon.leagueoflegends.com/api/versions.json"
     }

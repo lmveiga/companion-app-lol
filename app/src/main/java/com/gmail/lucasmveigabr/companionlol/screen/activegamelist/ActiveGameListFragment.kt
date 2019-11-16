@@ -86,9 +86,9 @@ class ActiveGameListFragment : Fragment() {
     private fun loadViewModel() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(ActiveGameListViewModel::class.java)
         navigationViewModel =
-            ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
+            ViewModelProvider(requireActivity(), viewModelFactory).get(NavigationViewModel::class.java)
         currentGameViewModel =
-            ViewModelProvider(requireActivity())[CurrentGameViewModel::class.java]
+            ViewModelProvider(requireActivity(), viewModelFactory)[CurrentGameViewModel::class.java]
     }
 
     private fun subscribeToData() {
