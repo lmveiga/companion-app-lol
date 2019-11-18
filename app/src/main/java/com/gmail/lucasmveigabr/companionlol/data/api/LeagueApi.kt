@@ -1,9 +1,9 @@
 package com.gmail.lucasmveigabr.companionlol.data.api
 
-import com.gmail.lucasmveigabr.companionlol.model.ChampionData
-import com.gmail.lucasmveigabr.companionlol.model.SpellsResponse
-import com.gmail.lucasmveigabr.companionlol.model.SummonerMatchStatus
-import com.gmail.lucasmveigabr.companionlol.model.SummonerResponse
+import com.gmail.lucasmveigabr.companionlol.data.model.schema.ChampionListSchema
+import com.gmail.lucasmveigabr.companionlol.data.model.schema.SpellListSchema
+import com.gmail.lucasmveigabr.companionlol.data.model.schema.MatchSchema
+import com.gmail.lucasmveigabr.companionlol.data.model.schema.SummonerSchema
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Url
@@ -11,14 +11,14 @@ import retrofit2.http.Url
 interface LeagueApi {
 
     @GET
-    fun getSummoner(@Url url: String): Call<SummonerResponse>
+    fun getSummoner(@Url url: String): Call<SummonerSchema>
 
     @GET
-    fun getCurrentGame(@Url url: String): Call<SummonerMatchStatus>
+    fun getCurrentGame(@Url url: String): Call<MatchSchema>
 
     @GET
-    fun getChampions(@Url url: String): Call<ChampionData>
+    fun getChampions(@Url url: String): Call<ChampionListSchema>
 
     @GET
-    fun getSpells(@Url url: String): Call<SpellsResponse>
+    fun getSpells(@Url url: String): Call<SpellListSchema>
 }

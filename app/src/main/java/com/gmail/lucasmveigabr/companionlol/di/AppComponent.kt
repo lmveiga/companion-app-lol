@@ -1,15 +1,13 @@
 package com.gmail.lucasmveigabr.companionlol.di
 
-import android.app.Activity
-import androidx.fragment.app.Fragment
 import com.gmail.lucasmveigabr.companionlol.data.db.dao.SummonerDao
-import com.gmail.lucasmveigabr.companionlol.screen.activegame.ActiveGameFragment
-import com.gmail.lucasmveigabr.companionlol.screen.activegame.ActiveGameViewModel
-import com.gmail.lucasmveigabr.companionlol.screen.activegamelist.ActiveGameListFragment
-import com.gmail.lucasmveigabr.companionlol.screen.activegamelist.ActiveGameListViewModel
-import com.gmail.lucasmveigabr.companionlol.screen.main.MainActivity
-import com.gmail.lucasmveigabr.companionlol.screen.signup.SummonerSignUpViewModel
-import com.gmail.lucasmveigabr.companionlol.screen.signup.SummonerSignupFragment
+import com.gmail.lucasmveigabr.companionlol.features.activegame.ActiveGameFragment
+import com.gmail.lucasmveigabr.companionlol.features.activegame.ActiveGameViewModel
+import com.gmail.lucasmveigabr.companionlol.features.activegamelist.ActiveGameListFragment
+import com.gmail.lucasmveigabr.companionlol.features.activegamelist.ActiveGameListViewModel
+import com.gmail.lucasmveigabr.companionlol.features.main.MainActivity
+import com.gmail.lucasmveigabr.companionlol.features.signup.SummonerSignUpViewModel
+import com.gmail.lucasmveigabr.companionlol.features.signup.SummonerSignUpFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -23,7 +21,7 @@ interface AppComponent {
     fun inject(activeGameViewModel: ActiveGameViewModel)
     fun inject(fragment: ActiveGameListFragment)
     fun inject(fragment: ActiveGameFragment)
-    fun inject(fragment: SummonerSignupFragment)
+    fun inject(fragment: SummonerSignUpFragment)
     fun inject(activity: MainActivity)
 
 

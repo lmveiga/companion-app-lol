@@ -10,4 +10,8 @@
     <string name="champion_description">Champion Description</string>
     <string name="summoner_spell">Summoner Spell</string>
     <string name="summoner_icon">Summoner Icon</string>
+    <string name="delete_summoner">Are you sure you want to delete this summoner?</string>
+    <string name="summoner_list">Summoner List</string>
+    <string name="summoner_not_found">Unable to find summoner</string>
+    <string name="network_error">Error while contacting Riot Games servers, check your internet connection</string>
 </resources>

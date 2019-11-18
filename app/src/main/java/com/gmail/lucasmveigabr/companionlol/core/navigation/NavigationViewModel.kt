@@ -3,7 +3,7 @@ package com.gmail.lucasmveigabr.companionlol.core.navigation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.gmail.lucasmveigabr.companionlol.data.db.dao.SummonerDao
-import com.gmail.lucasmveigabr.companionlol.model.NavigationEvent
+import com.gmail.lucasmveigabr.companionlol.data.model.NavigationEvent
 import com.gmail.lucasmveigabr.companionlol.util.SingleLiveEvent
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers

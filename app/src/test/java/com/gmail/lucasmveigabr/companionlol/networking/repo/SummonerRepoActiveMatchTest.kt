@@ -1,13 +1,14 @@
 package com.gmail.lucasmveigabr.companionlol.networking.repo
 
+import com.gmail.lucasmveigabr.companionlol.data.model.Region
+import com.gmail.lucasmveigabr.companionlol.data.model.Result
+import com.gmail.lucasmveigabr.companionlol.data.model.exception.SummonerNotInMatchException
 import com.gmail.lucasmveigabr.companionlol.data.repository.SummonerRepo
-import com.gmail.lucasmveigabr.companionlol.model.Region
-import com.gmail.lucasmveigabr.companionlol.model.Result
-import com.gmail.lucasmveigabr.companionlol.model.SummonerNotInMatchException
-import org.hamcrest.CoreMatchers.*
+import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.CoreMatchers.not
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertThat
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
@@ -15,62 +16,71 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class SummonerRepoActiveMatchTest {
 
-    lateinit var SUT: SummonerRepo
-    lateinit var api: LeagueApiTd
+    private lateinit var sut: SummonerRepo
+    private lateinit var api: LeagueApiTd
 
 
     @Before
     fun setUp() {
         api = LeagueApiTd()
-        SUT = SummonerRepo(api)
+        sut = SummonerRepo(api)
     }
 
     @Test
-    fun getSummonerActiveMatch_SuccessfulReturn_ReturnsSummonerMatchCorrectly(){
-        success();
-        val response = SUT.getSummonerActiveMatch("id", Region.BR)
+    fun getSummonerActiveMatch_SuccessfulReturn_ReturnsSummonerMatchCorrectly() {
+        success()
+        val response = sut.getSummonerActiveMatch("id", Region.BR)
         assertThat(response, instanceOf(Result.Success::class.java))
         assertNotNull((response as Result.Success).data)
     }
 
 
     @Test
-    fun getSummonerActiveMatch_MatchNotFound_ReturnsSummonerNotInMatchException(){
+    fun getSummonerActiveMatch_MatchNotFound_ReturnsSummonerNotInMatchException() {
         matchNotFound()
-        val response = SUT.getSummonerActiveMatch("id", Region.BR)
+        val response = sut.getSummonerActiveMatch("id", Region.BR)
         assertThat(response, instanceOf(Result.Failure::class.java))
-        assertThat((response as Result.Failure).error, instanceOf(SummonerNotInMatchException::class.java))
+        assertThat(
+            (response as Result.Failure).error,
+            instanceOf(SummonerNotInMatchException::class.java)
+        )
     }
 
     @Test
-    fun getSummonerActiveMatch_ServerError_ReturnsFailureAndCorrectException(){
+    fun getSummonerActiveMatch_ServerError_ReturnsFailureAndCorrectException() {
         serverError()
-        val response = SUT.getSummonerActiveMatch("id", Region.BR)
+        val response = sut.getSummonerActiveMatch("id", Region.BR)
         assertThat(response, instanceOf(Result.Failure::class.java))
-        assertThat((response as Result.Failure).error, not(instanceOf(SummonerNotInMatchException::class.java)))
+        assertThat(
+            (response as Result.Failure).error,
+            not(instanceOf(SummonerNotInMatchException::class.java))
+        )
     }
 
     @Test
-    fun getSummonerActiveMatch_NetworkError_ReturnsFailureAndCorrectException(){
+    fun getSummonerActiveMatch_NetworkError_ReturnsFailureAndCorrectException() {
         networkError()
-        val response = SUT.getSummonerActiveMatch("id", Region.BR)
+        val response = sut.getSummonerActiveMatch("id", Region.BR)
         assertThat(response, instanceOf(Result.Failure::class.java))
-        assertThat((response as Result.Failure).error, not(instanceOf(SummonerNotInMatchException::class.java)))
+        assertThat(
+            (response as Result.Failure).error,
+            not(instanceOf(SummonerNotInMatchException::class.java))
+        )
     }
 
     private fun success() {
         //no opt-in
     }
 
-    private fun matchNotFound(){
+    private fun matchNotFound() {
         api.notFound = true
     }
 
-    private fun serverError(){
+    private fun serverError() {
         api.otherError = true
     }
 
-    private fun networkError(){
+    private fun networkError() {
         api.networkError = true
     }
 

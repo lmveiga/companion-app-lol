@@ -1,28 +1,28 @@
 package com.gmail.lucasmveigabr.companionlol.networking.repo
 
-import com.gmail.lucasmveigabr.companionlol.model.*
 import com.gmail.lucasmveigabr.companionlol.data.api.LeagueApi
+import com.gmail.lucasmveigabr.companionlol.data.model.schema.*
+import com.gmail.lucasmveigabr.companionlol.testutil.data.GameData
 import okhttp3.Request
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
-import java.lang.RuntimeException
 
-class LeagueApiTd: LeagueApi {
+class LeagueApiTd : LeagueApi {
 
 
     var notFound: Boolean = false
     var otherError: Boolean = false
     var networkError: Boolean = false
-    var summonerIdInformed: String = ""
+    private var summonerIdInformed: String = ""
     var hasBeenCalled: Boolean = false
 
 
-    override fun getSummoner(name: String): Call<SummonerResponse> {
-        return object : Call<SummonerResponse> {
-            override fun enqueue(callback: Callback<SummonerResponse>) {
+    override fun getSummoner(name: String): Call<SummonerSchema> {
+        return object : Call<SummonerSchema> {
+            override fun enqueue(callback: Callback<SummonerSchema>) {
                 throw RuntimeException()
             }
 
@@ -30,7 +30,7 @@ class LeagueApiTd: LeagueApi {
                 throw RuntimeException()
             }
 
-            override fun clone(): Call<SummonerResponse> {
+            override fun clone(): Call<SummonerSchema> {
                 throw RuntimeException()
             }
 
@@ -42,16 +42,16 @@ class LeagueApiTd: LeagueApi {
                 throw RuntimeException()
             }
 
-            override fun execute(): Response<SummonerResponse> {
+            override fun execute(): Response<SummonerSchema> {
                 if (notFound)
                     return Response.error(404, ResponseBody.create(null, "body"))
                 if (otherError)
                     return Response.error(500, ResponseBody.create(null, "body"))
-                if (networkError){
+                if (networkError) {
                     throw IOException("network error")
                 }
                 return Response.success(
-                    SummonerResponse(
+                    SummonerSchema(
                         1, "name", "puuid",
                         1, "1", "id", 0
                     )
@@ -64,10 +64,10 @@ class LeagueApiTd: LeagueApi {
         }
     }
 
-    override fun getCurrentGame(encryptedId: String): Call<SummonerMatchStatus> {
+    override fun getCurrentGame(encryptedId: String): Call<MatchSchema> {
         summonerIdInformed = encryptedId
-        return object: Call<SummonerMatchStatus>{
-            override fun enqueue(callback: Callback<SummonerMatchStatus>) {
+        return object : Call<MatchSchema> {
+            override fun enqueue(callback: Callback<MatchSchema>) {
                 throw RuntimeException()
             }
 
@@ -75,7 +75,7 @@ class LeagueApiTd: LeagueApi {
                 throw RuntimeException()
             }
 
-            override fun clone(): Call<SummonerMatchStatus> {
+            override fun clone(): Call<MatchSchema> {
                 throw RuntimeException()
             }
 
@@ -87,17 +87,16 @@ class LeagueApiTd: LeagueApi {
                 throw RuntimeException()
             }
 
-            override fun execute(): Response<SummonerMatchStatus> {
-                if (notFound){
+            override fun execute(): Response<MatchSchema> {
+                if (notFound) {
                     return Response.error(404, ResponseBody.create(null, ""))
                 }
                 if (otherError)
                     return Response.error(500, ResponseBody.create(null, ""))
                 if (networkError) throw IOException()
-                return Response.success(SummonerMatchStatus(ArrayList<BannedChampion>(),
-                    1, 1, "mode", 1, 1, "type",
-                    1, Observers("key"), ArrayList<Participant>(), "plat_id"
-                ))
+                return Response.success(
+                    MatchSchema(GameData.getParticipants())
+                )
             }
 
             override fun request(): Request {
@@ -107,13 +106,13 @@ class LeagueApiTd: LeagueApi {
         }
     }
 
-    override fun getChampions(url: String): Call<ChampionData> {
-        return object: Call<ChampionData>{
+    override fun getChampions(url: String): Call<ChampionListSchema> {
+        return object : Call<ChampionListSchema> {
             override fun isExecuted(): Boolean {
                 throw RuntimeException()
             }
 
-            override fun clone(): Call<ChampionData> {
+            override fun clone(): Call<ChampionListSchema> {
                 throw RuntimeException()
             }
 
@@ -125,7 +124,7 @@ class LeagueApiTd: LeagueApi {
                 throw RuntimeException()
             }
 
-            override fun execute(): Response<ChampionData> {
+            override fun execute(): Response<ChampionListSchema> {
                 hasBeenCalled = true
                 if (otherError)
                     return Response.error(500, ResponseBody.create(null, ""))
@@ -137,16 +136,16 @@ class LeagueApiTd: LeagueApi {
                 throw RuntimeException()
             }
 
-            override fun enqueue(callback: Callback<ChampionData>) {
+            override fun enqueue(callback: Callback<ChampionListSchema>) {
                 throw RuntimeException()
             }
 
         }
     }
 
-    override fun getSpells(url: String): Call<SpellsResponse> {
-        return object: Call<SpellsResponse>{
-            override fun enqueue(callback: Callback<SpellsResponse>) {
+    override fun getSpells(url: String): Call<SpellListSchema> {
+        return object : Call<SpellListSchema> {
+            override fun enqueue(callback: Callback<SpellListSchema>) {
                 throw RuntimeException()
             }
 
@@ -154,7 +153,7 @@ class LeagueApiTd: LeagueApi {
                 throw RuntimeException()
             }
 
-            override fun clone(): Call<SpellsResponse> {
+            override fun clone(): Call<SpellListSchema> {
                 throw RuntimeException()
             }
 
@@ -166,7 +165,7 @@ class LeagueApiTd: LeagueApi {
                 throw RuntimeException()
             }
 
-            override fun execute(): Response<SpellsResponse> {
+            override fun execute(): Response<SpellListSchema> {
                 hasBeenCalled = true
                 if (otherError)
                     return Response.error(500, ResponseBody.create(null, ""))
@@ -181,23 +180,59 @@ class LeagueApiTd: LeagueApi {
         }
     }
 
-    private fun getSpellData(): SpellsResponse{
+    private fun getSpellData(): SpellListSchema {
         val spells = HashMap<String, SpellSummSchema>()
-        spells["SummonerBarrier"] = SpellSummSchema(ArrayList(), "desc",
-            ImageX("SummonerBarrier.png", 0,0,0,0),
-            "21", "Barrier")
-        spells["SummonerBoost"] = SpellSummSchema(ArrayList(), "desc",
-             ImageX("SummonerBoost.png", 0,0,0,0),
-            "1", "Cleanse")
-        return SpellsResponse(spells, "type", "version")
+        spells["SummonerBarrier"] =
+            SpellSummSchema(
+                ArrayList(), "desc",
+                ImagePropertiesSchema(
+                    "SummonerBarrier.png",
+                    0,
+                    0,
+                    0,
+                    0
+                ),
+                "21", "Barrier"
+            )
+        spells["SummonerBoost"] =
+            SpellSummSchema(
+                ArrayList(), "desc",
+                ImagePropertiesSchema(
+                    "SummonerBoost.png",
+                    0,
+                    0,
+                    0,
+                    0
+                ),
+                "1", "Cleanse"
+            )
+        return SpellListSchema(
+            spells,
+            "type",
+            "version"
+        )
     }
 
-    private fun getChampionData(): ChampionData{
+    private fun getChampionData(): ChampionListSchema {
         val champions = HashMap<String, ChampionSchema>()
-        champions["Aatrox"] = ChampionSchema("9.21.1", "Aatrox", 266, "Aatrox", "The Darkin Blade")
-        champions ["Aatrox"] = ChampionSchema("9.21.1", "Ahri", 103, "Ahri", "the Nine-Tailed Fox")
-        return ChampionData("champion", "standaloneComplex", "9.21.1",
-            champions)
+        champions["Aatrox"] = ChampionSchema(
+            "9.21.1",
+            "Aatrox",
+            266,
+            "Aatrox",
+            "The Darkin Blade"
+        )
+        champions["Aatrox"] = ChampionSchema(
+            "9.21.1",
+            "Ahri",
+            103,
+            "Ahri",
+            "the Nine-Tailed Fox"
+        )
+        return ChampionListSchema(
+            "champion", "standaloneComplex", "9.21.1",
+            champions
+        )
     }
 
 

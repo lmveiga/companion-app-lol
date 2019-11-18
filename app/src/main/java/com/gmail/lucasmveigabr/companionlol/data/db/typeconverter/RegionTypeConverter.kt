@@ -1,7 +1,7 @@
 package com.gmail.lucasmveigabr.companionlol.data.db.typeconverter
 
 import androidx.room.TypeConverter
-import com.gmail.lucasmveigabr.companionlol.model.Region
+import com.gmail.lucasmveigabr.companionlol.data.model.Region
 
 class RegionTypeConverter {
 

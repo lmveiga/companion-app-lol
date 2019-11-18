@@ -2,8 +2,8 @@ package com.gmail.lucasmveigabr.companionlol.data.repository
 
 import androidx.collection.SparseArrayCompat
 import com.gmail.lucasmveigabr.companionlol.data.api.LeagueApi
-import com.gmail.lucasmveigabr.companionlol.model.Result
-import com.gmail.lucasmveigabr.companionlol.model.SpellSummSchema
+import com.gmail.lucasmveigabr.companionlol.data.model.Result
+import com.gmail.lucasmveigabr.companionlol.data.model.schema.SpellSummSchema
 import com.gmail.lucasmveigabr.companionlol.util.Endpoints
 import javax.inject.Inject
 import javax.inject.Singleton

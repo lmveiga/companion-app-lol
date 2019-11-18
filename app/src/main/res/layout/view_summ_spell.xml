@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/spell_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:cropToPadding="true"
-        android:id="@+id/spell_image"
         android:background="@drawable/image_view_border_background"
-        android:scaleType="fitCenter"
         android:contentDescription="@string/summoner_spell"
-        android:src="@drawable/ic_failed_to_load"/>
+        android:cropToPadding="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_failed_to_load" />
 
     <View
         android:id="@+id/spell_darkoverlay"
@@ -20,19 +20,17 @@
         android:layout_height="match_parent"
         android:background="#9F000000"
         android:visibility="gone"
-        tools:visibility="visible"
-        />
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/spell_cd"
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        tools:text="180"/>
-
+        android:visibility="visible"
+        tools:text="180" />
 
 
 </FrameLayout>

@@ -1,7 +1,11 @@
 package com.gmail.lucasmveigabr.companionlol.data.repository
 
-import com.gmail.lucasmveigabr.companionlol.model.*
 import com.gmail.lucasmveigabr.companionlol.data.api.LeagueApi
+import com.gmail.lucasmveigabr.companionlol.data.model.*
+import com.gmail.lucasmveigabr.companionlol.data.model.exception.SummonerNotFoundException
+import com.gmail.lucasmveigabr.companionlol.data.model.exception.SummonerNotInMatchException
+import com.gmail.lucasmveigabr.companionlol.data.model.schema.MatchSchema
+import com.gmail.lucasmveigabr.companionlol.data.model.schema.SummonerSchema
 import com.gmail.lucasmveigabr.companionlol.util.Endpoints
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -10,7 +14,7 @@ import javax.inject.Singleton
 class SummonerRepo @Inject constructor(private val leagueApi: LeagueApi) {
 
 
-    fun verifyIfSummonerExists(summoner: String, region: Region): Result<SummonerResponse> {
+    fun verifyIfSummonerExists(summoner: String, region: Region): Result<SummonerSchema> {
         try {
             val response = leagueApi.getSummoner(Endpoints.summonerInfo(region, summoner))
                 .execute()
@@ -27,7 +31,7 @@ class SummonerRepo @Inject constructor(private val leagueApi: LeagueApi) {
         }
     }
 
-    fun getSummonerActiveMatch(summonerID: String, region: Region): Result<SummonerMatchStatus> {
+    fun getSummonerActiveMatch(summonerID: String, region: Region): Result<MatchSchema> {
         try {
             val response =
                 leagueApi.getCurrentGame(Endpoints.gameInfo(region, summonerID)).execute()

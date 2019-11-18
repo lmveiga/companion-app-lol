@@ -1,59 +1,58 @@
 package com.gmail.lucasmveigabr.companionlol.networking.repo
 
+import com.gmail.lucasmveigabr.companionlol.data.model.Result
 import com.gmail.lucasmveigabr.companionlol.data.repository.SpellsRepo
-import com.gmail.lucasmveigabr.companionlol.model.Result
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.instanceOf
+import org.junit.Assert.assertThat
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Test
 
 class SpellsRepoTest {
 
-    lateinit var SUT: SpellsRepo
-    lateinit var api: LeagueApiTd
+    private lateinit var sut: SpellsRepo
+    private lateinit var api: LeagueApiTd
 
     @Before
     fun setUp() {
         api = LeagueApiTd()
-        SUT = SpellsRepo(api)
+        sut = SpellsRepo(api)
     }
 
     @Test
-    fun getSpell_SuccessfulResponse_ReturnsCorrectSpell(){
-        val result = SUT.getSpell(21)
+    fun getSpell_SuccessfulResponse_ReturnsCorrectSpell() {
+        val result = sut.getSpell(21)
         assertThat(result, instanceOf(Result.Success::class.java))
         assertThat((result as Result.Success).data.key, `is`("21"))
     }
 
     @Test
-    fun getSpell_SuccessfulResponseAfterCache_ReturnsCachedSpell(){
-        SUT.getSpell(1)
+    fun getSpell_SuccessfulResponseAfterCache_ReturnsCachedSpell() {
+        sut.getSpell(1)
         api.hasBeenCalled = false
-        val result = SUT.getSpell(1)
+        val result = sut.getSpell(1)
         assertThat(api.hasBeenCalled, `is`(false))
         assertThat(result, instanceOf(Result.Success::class.java))
         assertThat((result as Result.Success).data.key, `is`(1.toString()))
     }
 
     @Test
-    fun getSpell_NetworkError_ReturnsCorrectResponse(){
+    fun getSpell_NetworkError_ReturnsCorrectResponse() {
         api.networkError = true
-        val result = SUT.getSpell(1)
+        val result = sut.getSpell(1)
         assertThat(result, instanceOf(Result.Failure::class.java))
     }
 
     @Test
-    fun getSpell_Other_ReturnsCorrectResponse(){
+    fun getSpell_Other_ReturnsCorrectResponse() {
         api.otherError = true
-        val result = SUT.getSpell(1)
+        val result = sut.getSpell(1)
         assertThat(result, instanceOf(Result.Failure::class.java))
     }
 
     @Test
-    fun getSpell_InvalidId_ReturnsCorrectResponse(){
-        val result = SUT.getSpell(11231)
+    fun getSpell_InvalidId_ReturnsCorrectResponse() {
+        val result = sut.getSpell(11231)
         assertThat(result, instanceOf(Result.Failure::class.java))
     }
 

@@ -1,6 +1,6 @@
 package com.gmail.lucasmveigabr.companionlol.di
 
-import com.gmail.lucasmveigabr.companionlol.data.api.CustomReceptor
+import com.gmail.lucasmveigabr.companionlol.data.api.receptor.RiotApiReceptor
 import com.gmail.lucasmveigabr.companionlol.data.api.LeagueApi
 import dagger.Module
 import dagger.Provides
@@ -30,7 +30,7 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    fun providesOkHttpClient(receptor: CustomReceptor): OkHttpClient {
+    fun providesOkHttpClient(receptor: RiotApiReceptor): OkHttpClient {
         val builder = OkHttpClient.Builder()
         builder.addInterceptor(receptor)
         return builder.build()
@@ -38,7 +38,7 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideReceptor(): CustomReceptor =
-        CustomReceptor()
+    fun provideReceptor(): RiotApiReceptor =
+        RiotApiReceptor()
 
 }

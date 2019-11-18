@@ -2,7 +2,7 @@ package com.gmail.lucasmveigabr.companionlol.data.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.gmail.lucasmveigabr.companionlol.model.Summoner
+import com.gmail.lucasmveigabr.companionlol.data.model.Summoner
 
 @Dao
 interface SummonerDao {

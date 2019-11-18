@@ -1,6 +1,6 @@
 package com.gmail.lucasmveigabr.companionlol.util
 
-import com.gmail.lucasmveigabr.companionlol.model.Region
+import com.gmail.lucasmveigabr.companionlol.data.model.Region
 
 object Endpoints {
     private const val DD_VERSION = "9.22.1"

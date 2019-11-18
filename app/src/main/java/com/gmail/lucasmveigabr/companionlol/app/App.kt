@@ -8,7 +8,7 @@ import com.gmail.lucasmveigabr.companionlol.di.DaggerAppComponent
 class App : Application() {
 
     companion object {
-        var appComponent: AppComponent? = null
+        lateinit var appComponent: AppComponent
     }
 
 

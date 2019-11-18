@@ -1,11 +1,11 @@
 package com.gmail.lucasmveigabr.companionlol.networking.repo
 
+import com.gmail.lucasmveigabr.companionlol.data.model.Region
+import com.gmail.lucasmveigabr.companionlol.data.model.Result
+import com.gmail.lucasmveigabr.companionlol.data.model.exception.SummonerNotFoundException
 import com.gmail.lucasmveigabr.companionlol.data.repository.SummonerRepo
-import com.gmail.lucasmveigabr.companionlol.model.Region
-import com.gmail.lucasmveigabr.companionlol.model.Result
-import com.gmail.lucasmveigabr.companionlol.model.SummonerNotFoundException
 import org.hamcrest.CoreMatchers.*
-import org.junit.Assert.*
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,29 +14,28 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class SummonerRepoTest {
 
-    lateinit var SUT: SummonerRepo
-
-    lateinit var api: LeagueApiTd
+    private lateinit var sut: SummonerRepo
+    private lateinit var api: LeagueApiTd
 
 
     @Before
     fun setUp() {
         api = LeagueApiTd()
-        SUT = SummonerRepo(api)
+        sut = SummonerRepo(api)
     }
 
     @Test
-    fun VerifySummonerExists_SuccessfulHttpReturn_ReturnsSuccess() {
+    fun `when summoner exists should return successful result`() {
         success()
-        val result = SUT.verifyIfSummonerExists("summoner", Region.BR)
+        val result = sut.verifyIfSummonerExists("summoner", Region.BR)
         assertThat(result, instanceOf(Result.Success::class.java))
         assertThat((result as Result.Success).data.name, `is`("name"))
     }
 
     @Test
-    fun VerifySummonerExists_404HttpReturn_ReturnsSummonerNotFoundException() {
+    fun `when http 404 error occurs should return summoner not found exception`() {
         summonerNotFound()
-        val result = SUT.verifyIfSummonerExists("summoner", Region.BR)
+        val result = sut.verifyIfSummonerExists("summoner", Region.BR)
         assertThat(result, instanceOf(Result.Failure::class.java))
         assertThat(
             (result as Result.Failure).error,
@@ -45,9 +44,9 @@ class SummonerRepoTest {
     }
 
     @Test
-    fun VerifySummonerExists_OtherError_ReturnsFailureWithoutNotFOundException() {
+    fun `when other error occurs should fail with correct exception`() {
         otherError()
-        val result = SUT.verifyIfSummonerExists("summoner", Region.BR)
+        val result = sut.verifyIfSummonerExists("summoner", Region.BR)
         assertThat(result, instanceOf(Result.Failure::class.java))
         assertThat(
             (result as Result.Failure).error,
@@ -56,9 +55,9 @@ class SummonerRepoTest {
     }
 
     @Test
-    fun VerifySummonerExists_NetworkError_ReturnsFailureWithoutNotFOundException() {
+    fun `when network error occurs should return failure correctly`() {
         networkError()
-        val result = SUT.verifyIfSummonerExists("summoner", Region.BR)
+        val result = sut.verifyIfSummonerExists("summoner", Region.BR)
         assertThat(result, instanceOf(Result.Failure::class.java))
         assertThat(
             (result as Result.Failure).error,
@@ -78,7 +77,7 @@ class SummonerRepoTest {
         api.otherError = true
     }
 
-    private fun networkError(){
+    private fun networkError() {
         api.networkError = true
     }
 
