@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Companion App for League of Legends</string>
+    <string name="champion_description">Descrição do Champion</string>
+    <string name="delete_summoner">Você tem certeza que deseja deletar este invocador?</string>
+    <string name="game_active">Jogo Ativo</string>
+    <string name="network_error">Erro ao contatar servidores da Riot Games, verifique sua conexão com a internet</string>
+    <string name="next">Avançar</string>
+    <string name="refresh">Atualizar</string>
+    <string name="register_new_summoner">Cadastrar Novo Invocador</string>
+    <string name="select_summoner">Selecione seu Invocador</string>
+    <string name="summoner_icon">Icone do Invocador</string>
+    <string name="summoner_list">Lista de Invocadores</string>
+    <string name="summoner_name">Nome do Invocador</string>
+    <string name="summoner_not_found">Não foi possível encontrar o invocador</string>
+    <string name="summoner_spell">Feitiço do Invocador</string>
+    <string name="type_summmoner_name">Digite o nome do seu invocador</string>
+</resources>
