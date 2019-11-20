@@ -14,6 +14,8 @@ import com.gmail.lucasmveigabr.companionlol.app.App
 import com.gmail.lucasmveigabr.companionlol.core.navigation.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.data.model.NavigationEvent
 import com.gmail.lucasmveigabr.companionlol.data.model.Summoner
+import com.gmail.lucasmveigabr.companionlol.util.showLongSnackBar
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_active_game_list.*
 import javax.inject.Inject
 
@@ -72,6 +74,8 @@ class ActiveGameListFragment : Fragment() {
         adapter = ActiveGameListAdapter(requireContext(), {
             if (it?.game != null) {
                 navigationViewModel.setNavigation(NavigationEvent.ActiveGameNavigation(it))
+            } else {
+                view?.showLongSnackBar(R.string.cant_select_summoner_not_in_match)
             }
         }, {
             deleteSummonerAlertDialog(it.summoner)

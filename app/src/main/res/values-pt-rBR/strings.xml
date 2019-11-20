@@ -15,4 +15,5 @@
     <string name="summoner_not_found">Não foi possível encontrar o invocador</string>
     <string name="summoner_spell">Feitiço do Invocador</string>
     <string name="type_summmoner_name">Digite o nome do seu invocador</string>
+    <string name="cant_select_summoner_not_in_match">Você não pode selecionar um invocador que não está em uma partida em andamento!</string>
 </resources>

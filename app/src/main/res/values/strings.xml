@@ -14,4 +14,5 @@
     <string name="summoner_list">Summoner List</string>
     <string name="summoner_not_found">Unable to find summoner</string>
     <string name="network_error">Error while contacting Riot Games servers, check your internet connection</string>
+    <string name="cant_select_summoner_not_in_match">You can\'t select a summoner that is not currently in a match!</string>
 </resources>
