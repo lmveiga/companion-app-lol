@@ -1,0 +1,5 @@
+Para o correto funcionamento
+é necessário gerar uma Api key
+no site de desenvolvedores da Riot Games
+
+https://developer.riotgames.com/apis
