@@ -24,14 +24,14 @@ class ChampionRepoTest {
     }
 
     @Test
-    fun getChampion_SuccessfulResponse_ReturnsCorrectChampion() {
+    fun `when get champion is called and api returns successful response should correctly return success`() {
         val result = sut.getChampion(103)
         assertThat(result, instanceOf(Result.Success::class.java))
         assertThat((result as Result.Success).data.name, `is`("Ahri"))
     }
 
     @Test
-    fun getChampion_SuccessfulResponseAfterCache_ReturnsCachedChampion() {
+    fun `when get champion is called and there is cached value should return cached value correctly`() {
         sut.getChampion(103)
         api.hasBeenCalled = false
         val result = sut.getChampion(103)
@@ -41,21 +41,21 @@ class ChampionRepoTest {
     }
 
     @Test
-    fun getChampion_NetworkError_ReturnsFailure() {
+    fun `when get champion is called and api returns a network error should correctly return failure`() {
         api.networkError = true
         val result = sut.getChampion(103)
         assertThat(result, instanceOf(Result.Failure::class.java))
     }
 
     @Test
-    fun getChampion_OtherError_ReturnsFailure() {
+    fun `when getChampion is called and api return error should correctly return failure`() {
         api.otherError = true
         val result = sut.getChampion(103)
         assertThat(result, instanceOf(Result.Failure::class.java))
     }
 
     @Test
-    fun getChampion_InvalidId_ReturnsFailure() {
+    fun `when getChampion is called with incorrect ID should correctly return error`() {
         val result = sut.getChampion(4124)
         assertThat(result, instanceOf(Result.Failure::class.java))
     }

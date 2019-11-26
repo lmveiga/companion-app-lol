@@ -20,14 +20,14 @@ class SpellsRepoTest {
     }
 
     @Test
-    fun getSpell_SuccessfulResponse_ReturnsCorrectSpell() {
+    fun `when getSpell is called and api returns successful response should return correct spell`() {
         val result = sut.getSpell(21)
         assertThat(result, instanceOf(Result.Success::class.java))
         assertThat((result as Result.Success).data.key, `is`("21"))
     }
 
     @Test
-    fun getSpell_SuccessfulResponseAfterCache_ReturnsCachedSpell() {
+    fun `when getSpell is called and there is cache value should return cache data`() {
         sut.getSpell(1)
         api.hasBeenCalled = false
         val result = sut.getSpell(1)
@@ -37,21 +37,21 @@ class SpellsRepoTest {
     }
 
     @Test
-    fun getSpell_NetworkError_ReturnsCorrectResponse() {
+    fun `when get spell is called and an network error occurs should return failure`() {
         api.networkError = true
         val result = sut.getSpell(1)
         assertThat(result, instanceOf(Result.Failure::class.java))
     }
 
     @Test
-    fun getSpell_Other_ReturnsCorrectResponse() {
+    fun `when get spell is called and other error occur should correctly return failure`() {
         api.otherError = true
         val result = sut.getSpell(1)
         assertThat(result, instanceOf(Result.Failure::class.java))
     }
 
     @Test
-    fun getSpell_InvalidId_ReturnsCorrectResponse() {
+    fun `when get spell is called with an invalid ID should return failure correctly`() {
         val result = sut.getSpell(11231)
         assertThat(result, instanceOf(Result.Failure::class.java))
     }

@@ -27,7 +27,7 @@ class SummonerRepoActiveMatchTest {
     }
 
     @Test
-    fun getSummonerActiveMatch_SuccessfulReturn_ReturnsSummonerMatchCorrectly() {
+    fun `when getSummonerActiveMatch is called and api returns sucessfully should correcly return success`() {
         success()
         val response = sut.getSummonerActiveMatch("id", Region.BR)
         assertThat(response, instanceOf(Result.Success::class.java))
@@ -36,7 +36,7 @@ class SummonerRepoActiveMatchTest {
 
 
     @Test
-    fun getSummonerActiveMatch_MatchNotFound_ReturnsSummonerNotInMatchException() {
+    fun `when getSummonerActiveMatch is called and there is not an active match should return correct exception`() {
         matchNotFound()
         val response = sut.getSummonerActiveMatch("id", Region.BR)
         assertThat(response, instanceOf(Result.Failure::class.java))
@@ -47,7 +47,7 @@ class SummonerRepoActiveMatchTest {
     }
 
     @Test
-    fun getSummonerActiveMatch_ServerError_ReturnsFailureAndCorrectException() {
+    fun `when getSummonerActiveMatch is called and a server error occurs should return failure correctly`() {
         serverError()
         val response = sut.getSummonerActiveMatch("id", Region.BR)
         assertThat(response, instanceOf(Result.Failure::class.java))
@@ -58,7 +58,7 @@ class SummonerRepoActiveMatchTest {
     }
 
     @Test
-    fun getSummonerActiveMatch_NetworkError_ReturnsFailureAndCorrectException() {
+    fun `when getSummonerActiveMatch is called and api returns an network error should correctly return failure`() {
         networkError()
         val response = sut.getSummonerActiveMatch("id", Region.BR)
         assertThat(response, instanceOf(Result.Failure::class.java))
