@@ -1,6 +1,6 @@
 # Companion App for League of Legends
 
 
-In order for the app to function it is required to go into Riot Games Developer website and generate an API Token. After you generate it, replace gradle.properties RiotAPIKey variable.
+The app requires an Riot API Token in order to work. You can get one in the website linked below. You should place the API Token in gradle.properties file, replacing the RiotAPIKey variable.
 
 https://developer.riotgames.com/apis
