@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Companion App for League of Legends.iml" filepath="$PROJECT_DIR$/Companion App for League of Legends.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Companion_App_for_League_of_Legends.iml" filepath="$PROJECT_DIR$/.idea/modules/Companion_App_for_League_of_Legends.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Companion_App_for_League_of_Legends.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Companion_App_for_League_of_Legends.app.iml" />
     </modules>
   </component>
 </project>
