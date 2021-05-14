@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.gmail.lucasmveigabr.companionlol.data.db.typeconverter.RegionTypeConverter
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Entity
 @TypeConverters(RegionTypeConverter::class)

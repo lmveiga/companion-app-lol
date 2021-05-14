@@ -3,7 +3,7 @@ package com.gmail.lucasmveigabr.companionlol.data.model
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import com.gmail.lucasmveigabr.companionlol.data.model.schema.MatchSchema
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class SummonerInGame(

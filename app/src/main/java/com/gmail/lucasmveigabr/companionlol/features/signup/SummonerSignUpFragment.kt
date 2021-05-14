@@ -13,9 +13,9 @@ import com.gmail.lucasmveigabr.companionlol.app.App
 import com.gmail.lucasmveigabr.companionlol.core.navigation.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.data.model.NavigationEvent
 import com.gmail.lucasmveigabr.companionlol.data.model.Region
+import com.gmail.lucasmveigabr.companionlol.databinding.FragmentSummonerSignupBinding
 import com.gmail.lucasmveigabr.companionlol.features.signup.SummonerSignUpViewModel.AddSummonerResult.*
 import com.gmail.lucasmveigabr.companionlol.util.showLongSnackBar
-import kotlinx.android.synthetic.main.fragment_summoner_signup.*
 import javax.inject.Inject
 
 class SummonerSignUpFragment : Fragment() {
@@ -25,6 +25,7 @@ class SummonerSignUpFragment : Fragment() {
 
     private lateinit var viewModel: SummonerSignUpViewModel
     private lateinit var navigationViewModel: NavigationViewModel
+    private lateinit var binding: FragmentSummonerSignupBinding
     private var buttonLastClick: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +37,11 @@ class SummonerSignUpFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_summoner_signup, container, false)
+    ): View? {
+        binding = FragmentSummonerSignupBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,23 +77,23 @@ class SummonerSignUpFragment : Fragment() {
     }
 
     private fun setupRegionSpinner() {
-        region_spinner.adapter = ArrayAdapter<Region>(
+        binding.regionSpinner.adapter = ArrayAdapter<Region>(
             requireContext(),
             android.R.layout.simple_list_item_1, Region.values()
         )
     }
 
     private fun setupButtons() {
-        next_button.setOnClickListener {
+        binding.nextButton.setOnClickListener {
             if (System.currentTimeMillis() - buttonLastClick >= 8000) {
                 buttonLastClick = System.currentTimeMillis()
                 viewModel.addSummoner(
-                    summoner_name_edit_text.text.toString(),
-                    region_spinner.selectedItem as Region
+                    binding.summonerNameEditText.text.toString(),
+                    binding.regionSpinner.selectedItem as Region
                 )
             }
         }
-        summoner_list_button.setOnClickListener {
+        binding.summonerListButton.setOnClickListener {
             navigationViewModel.setNavigation(NavigationEvent.ActiveGameListNavigation)
         }
     }

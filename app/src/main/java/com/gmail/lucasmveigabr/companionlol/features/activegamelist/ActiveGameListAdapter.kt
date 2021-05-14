@@ -5,12 +5,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.data.model.SummonerInGame
 import com.gmail.lucasmveigabr.companionlol.util.setVisible
-import kotlinx.android.synthetic.main.holder_summoners_active_game.view.*
 
 class ActiveGameListAdapter(
     val context: Context,
@@ -46,10 +48,10 @@ class ActiveGameListAdapter(
         @SuppressLint("SetTextI18n")
         fun bindHolder(item: SummonerInGame) {
             with(view) {
-                summoner_name_text_view.text =
+                findViewById<TextView>(R.id.summoner_name_text_view).text =
                     "${item.summoner.region} - ${item.summoner.summonnerName}"
-                game_active_image.setVisible(item.game != null)
-                progress_bar.setVisible(item.isLoading)
+                findViewById<ImageView>(R.id.game_active_image).setVisible(item.game != null)
+                findViewById<ProgressBar>(R.id.progress_bar).setVisible(item.isLoading)
             }
         }
 

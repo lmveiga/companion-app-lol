@@ -6,13 +6,13 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.data.model.SummonerSpell
 import com.gmail.lucasmveigabr.companionlol.util.Endpoints
 import com.gmail.lucasmveigabr.companionlol.util.cooldownForTimer
 import com.gmail.lucasmveigabr.companionlol.util.setVisible
-import kotlinx.android.synthetic.main.view_summ_spell.view.*
 
 
 class SummonerSpellView @JvmOverloads constructor(
@@ -36,7 +36,7 @@ class SummonerSpellView @JvmOverloads constructor(
         this.spell = spell
         Glide.with(context)
             .load(Endpoints.spellIcon(spell.icon))
-            .into(spell_image)
+            .into(findViewById(R.id.spell_image))
         if (spell.cdUntil > 0L) {
             setupTimer()
         }
@@ -51,15 +51,15 @@ class SummonerSpellView @JvmOverloads constructor(
                 1000
             ) {
                 override fun onFinish() {
-                    spell_cd.text = ""
-                    spell_darkoverlay.setVisible(false)
+                    findViewById<TextView>(R.id.spell_cd).text = ""
+                    findViewById<View>(R.id.spell_darkoverlay).setVisible(false)
                     spell.cdUntil = 0
                     isRunning = false
                 }
 
                 override fun onTick(millisUntilFinished: Long) {
-                    spell_darkoverlay.setVisible(true)
-                    spell_cd.text = (millisUntilFinished / 1000).toString()
+                    findViewById<View>(R.id.spell_darkoverlay).setVisible(true)
+                    findViewById<TextView>(R.id.spell_cd).text = (millisUntilFinished / 1000).toString()
                     spell.cdUntil = System.currentTimeMillis() + millisUntilFinished
                 }
             }

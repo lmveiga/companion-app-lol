@@ -14,9 +14,9 @@ import com.gmail.lucasmveigabr.companionlol.app.App
 import com.gmail.lucasmveigabr.companionlol.core.navigation.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.data.model.NavigationEvent
 import com.gmail.lucasmveigabr.companionlol.data.model.Summoner
+import com.gmail.lucasmveigabr.companionlol.databinding.FragmentActiveGameListBinding
 import com.gmail.lucasmveigabr.companionlol.util.showLongSnackBar
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_active_game_list.*
 import javax.inject.Inject
 
 class ActiveGameListFragment : Fragment() {
@@ -27,9 +27,11 @@ class ActiveGameListFragment : Fragment() {
     private lateinit var viewModel: ActiveGameListViewModel
     private lateinit var navigationViewModel: NavigationViewModel
     private lateinit var adapter: ActiveGameListAdapter
+    private lateinit var binding: FragmentActiveGameListBinding
 
     private var refreshLastClick: Long = 0
     private var registerNewSummonerLastClick: Long = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,10 @@ class ActiveGameListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_active_game_list, container, false)
+    ): View? {
+        binding = FragmentActiveGameListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,13 +56,13 @@ class ActiveGameListFragment : Fragment() {
     }
 
     private fun setupViewListeners() {
-        register_new_summoner_button.setOnClickListener {
+        binding.registerNewSummonerButton.setOnClickListener {
             if (System.currentTimeMillis() - registerNewSummonerLastClick >= 6000) {
                 registerNewSummonerLastClick = System.currentTimeMillis()
                 navigationViewModel.setNavigation(NavigationEvent.SummonerSignUpNavigation)
             }
         }
-        refresh_button.setOnClickListener {
+        binding.refreshButton.setOnClickListener {
             if (System.currentTimeMillis() - refreshLastClick >= 7000) {
                 refreshLastClick = System.currentTimeMillis()
                 viewModel.refreshButtonClicked()
@@ -66,8 +71,8 @@ class ActiveGameListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        summoners_recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        summoners_recycler_view.adapter = adapter
+        binding.summonersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.summonersRecyclerView.adapter = adapter
     }
 
     private fun setupAdapter() {

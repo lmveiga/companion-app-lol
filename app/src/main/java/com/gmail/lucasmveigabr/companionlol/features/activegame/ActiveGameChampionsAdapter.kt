@@ -1,14 +1,15 @@
 package com.gmail.lucasmveigabr.companionlol.features.activegame
 
 import android.content.Context
+import android.service.autofill.TextValueSanitizer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gmail.lucasmveigabr.companionlol.R
 import com.gmail.lucasmveigabr.companionlol.data.model.EnemySummoner
-import kotlinx.android.synthetic.main.holder_active_game_champions.view.*
 import java.util.*
 
 class ActiveGameChampionsAdapter(val context: Context) :
@@ -41,16 +42,17 @@ class ActiveGameChampionsAdapter(val context: Context) :
 
     inner class ActiveGameChampionsHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
+
         fun bind(enemy: EnemySummoner) {
             Glide.with(context)
-                .load(enemy.championIconUrl).into(view.champion_icon)
+                .load(enemy.championIconUrl).into(view.findViewById(R.id.champion_icon))
             if (enemy.spell1 != null) {
-                view.spell1.setSpell(enemy.spell1)
+                view.findViewById<SummonerSpellView>(R.id.spell1).setSpell(enemy.spell1)
             }
             if (enemy.spell2 != null) {
-                view.spell2.setSpell(enemy.spell2)
+                view.findViewById<SummonerSpellView>(R.id.spell2).setSpell(enemy.spell2)
             }
-            view.summoner_name_text_view.text = enemy.summonerName
+            view.findViewById<TextView>(R.id.summoner_name_text_view).text = enemy.summonerName
         }
 
     }

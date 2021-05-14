@@ -17,9 +17,9 @@ import com.gmail.lucasmveigabr.companionlol.core.navigation.NavigationViewModel
 import com.gmail.lucasmveigabr.companionlol.data.model.ActiveGameChampionsAdapterState
 import com.gmail.lucasmveigabr.companionlol.data.model.EnemySummoner
 import com.gmail.lucasmveigabr.companionlol.data.model.SummonerInGame
+import com.gmail.lucasmveigabr.companionlol.databinding.FragmentActiveGameBinding
 import com.gmail.lucasmveigabr.companionlol.util.Endpoints
 import com.gmail.lucasmveigabr.companionlol.util.setVisible
-import kotlinx.android.synthetic.main.fragment_active_game.*
 import javax.inject.Inject
 
 private const val GAME_STATE = "game_state"
@@ -35,6 +35,7 @@ class ActiveGameFragment : Fragment() {
     private lateinit var navigationViewModel: NavigationViewModel
 
     private lateinit var adapter: ActiveGameChampionsAdapter
+    private lateinit var binding: FragmentActiveGameBinding
 
     private var game: SummonerInGame? = null
         set(value) {
@@ -45,8 +46,8 @@ class ActiveGameFragment : Fragment() {
                 if (summoner != null) {
                     Glide.with(requireActivity())
                         .load(Endpoints.profileIcon(summoner.profileIconId))
-                        .into(current_summoner_image_view)
-                    summoner_name_text_view.text = summoner.summonerName
+                        .into(binding.currentSummonerImageView)
+                    binding.summonerNameTextView.text = summoner.summonerName
                 }
             }
         }
@@ -61,8 +62,10 @@ class ActiveGameFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_active_game, container, false)
-
+    ): View? {
+        binding = FragmentActiveGameBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -88,8 +91,8 @@ class ActiveGameFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = ActiveGameChampionsAdapter(requireActivity())
-        champions_recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        champions_recycler_view.adapter = adapter
+        binding.championsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.championsRecyclerView.adapter = adapter
         val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
             0
@@ -105,7 +108,7 @@ class ActiveGameFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
         })
-        touchHelper.attachToRecyclerView(champions_recycler_view)
+        touchHelper.attachToRecyclerView(binding.championsRecyclerView)
     }
 
     private fun subscribeToData() {
@@ -145,9 +148,9 @@ class ActiveGameFragment : Fragment() {
     }
 
     private fun setProgressLayout(visible: Boolean) {
-        progress_bar.setVisible(visible)
-        current_summoner_card.setVisible(!visible)
-        champions_recycler_view.setVisible(!visible)
+        binding.progressBar.setVisible(visible)
+        binding.currentSummonerCard.setVisible(!visible)
+        binding.championsRecyclerView.setVisible(!visible)
     }
 
     companion object {
