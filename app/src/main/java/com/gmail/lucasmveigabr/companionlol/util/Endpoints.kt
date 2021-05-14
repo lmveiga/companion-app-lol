@@ -33,27 +33,27 @@ object Endpoints {
     }
 
     fun champions(): String {
-        return "http://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/data/en_US/champion.json"
+        return "https://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/data/en_US/champion.json"
     }
 
     fun championCard(championID: String): String {
-        return "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championID}_0.jpg"
+        return "https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championID}_0.jpg"
     }
 
     fun championIcon(championID: String): String {
-        return "http://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/img/champion/${championID}.png"
+        return "https://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/img/champion/${championID}.png"
     }
 
     fun summonersSpells(): String {
-        return "http://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/data/en_US/summoner.json"
+        return "https://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/data/en_US/summoner.json"
     }
 
     fun spellIcon(filename: String): String {
-        return "http://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/img/spell/${filename}"
+        return "https://ddragon.leagueoflegends.com/cdn/${DD_VERSION}/img/spell/${filename}"
     }
 
     fun profileIcon(id: Int): String {
-        return "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/profileicon/${id}.png"
+        return "https://ddragon.leagueoflegends.com/cdn/9.22.1/img/profileicon/${id}.png"
     }
 
     fun version(): String {
